@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة الزفاف القطرية الفاخرة | لوحة القيادة</title>
+    <title>منصة الزفاف القطرية | لوحة القيادة التفصيلية</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -14,8 +14,10 @@
                 extend: {
                     fontFamily: { sans: ['Tajawal', 'sans-serif'] },
                     colors: {
-                        qatar: '#5A0A0A',
-                        qatarDark: '#2A0505',
+                        /* الكحلي المريح للعين والمطفي */
+                        navyBase: '#0F172A',
+                        navyLight: '#1E293B',
+                        navyDark: '#020617',
                         gold: '#D4AF37',
                         goldLight: '#F3E5AB'
                     }
@@ -24,209 +26,271 @@
         }
     </script>
     <style>
-        body { background: linear-gradient(135deg, #2A0505 0%, #000000 100%); color: #F8F9FA; min-height: 100vh; }
-        /* تصميم البطاقات الزجاجية الفاخرة */
+        body { 
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #020617 100%); 
+            color: #F8F9FA; 
+            min-height: 100vh; 
+        }
         .glass-card {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.15);
             border-radius: 1.5rem;
-            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
             transition: transform 0.3s ease, border-color 0.3s ease;
         }
-        .glass-card:hover { border-color: rgba(212, 175, 55, 0.6); }
-        /* شريط التقدم */
-        .progress-bar { transition: width 0.5s ease-in-out; }
-        /* تخصيص زر الاختيار (Checkbox) */
-        input[type="checkbox"] { accent-color: #D4AF37; width: 1.2rem; height: 1.2rem; cursor: pointer; }
+        .glass-card:hover { border-color: rgba(212, 175, 55, 0.5); }
+        input[type="checkbox"] { accent-color: #D4AF37; width: 1.3rem; height: 1.3rem; cursor: pointer; }
+        
+        /* تصميم التقرير المنبثق */
+        #reportModal { display: none; }
+        #reportModal.active { display: flex; }
     </style>
 </head>
-<body class="p-0 md:p-12 relative overflow-x-hidden">
+<body class="p-0 md:p-8 relative overflow-x-hidden">
 
-    <div id="passwordGate" class="fixed inset-0 bg-[#070707] z-[999999] flex items-center justify-center font-sans transition-opacity duration-500">
+    <div id="passwordGate" class="fixed inset-0 bg-[#020617] z-[999999] flex items-center justify-center transition-opacity duration-500">
         <div class="w-[min(420px,90vw)] glass-card p-8 text-center">
-            <div class="text-gold font-black tracking-widest mb-3">PRIVATE</div>
+            <div class="text-gold font-black tracking-widest mb-3">ZWAAJ PRIVATE</div>
             <h1 class="text-3xl font-bold mb-3 text-gold">دخول خاص</h1>
-            <p class="text-gray-300 opacity-70 mb-6">أدخل كلمة المرور لعرض اللوحة الهندسية</p>
-            
-            <input id="passwordInput" type="password" placeholder="كلمة المرور" dir="ltr" class="w-full p-4 rounded-xl border border-gold/40 bg-black/50 text-white text-center text-lg outline-none focus:border-gold transition-colors mb-4">
-            
-            <button onclick="checkPassword()" class="w-full p-4 rounded-xl bg-gold text-[#070707] font-black text-lg hover:scale-[102%] transition-transform">دخول</button>
-            
+            <input id="passwordInput" type="password" placeholder="كلمة المرور" dir="ltr" class="w-full p-4 rounded-xl border border-gold/30 bg-black/40 text-white text-center text-lg outline-none focus:border-gold mb-4">
+            <button onclick="checkPassword()" class="w-full p-4 rounded-xl bg-gold text-navyDark font-black text-lg hover:scale-[102%] transition-transform">دخول</button>
             <div id="passwordError" class="hidden text-red-400 mt-4 text-sm font-bold">كلمة المرور غير صحيحة</div>
         </div>
     </div>
 
-    <div class="p-6 md:p-0">
-        <header class="mb-12 text-center pt-8 md:pt-0">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-gold mb-4 drop-shadow-lg"><i class="fa-solid fa-crown mr-3"></i> منصة الزفاف القطرية (B2B2C)</h1>
-            <p class="text-lg text-gray-300 mb-8">لوحة التتبع الهندسية والتفاعلية لإنجاز المشروع</p>
+    <div class="max-w-7xl mx-auto p-6 md:p-0 pt-8">
+        
+        <header class="mb-10 text-center">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-gold mb-4 drop-shadow-lg"><i class="fa-solid fa-gem mr-3"></i> منصة الزفاف الفاخرة (التفصيلية)</h1>
+            <p class="text-lg text-gray-400 mb-8">نظام التتبع الشامل - معتمد على The Matrix White & Adobe</p>
             
-            <div class="max-w-2xl mx-auto glass-card p-4">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-gold font-bold">نسبة إنجاز المشروع</span>
-                    <span id="progress-text" class="text-white font-bold text-xl">0%</span>
+            <div class="max-w-3xl mx-auto glass-card p-5">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-gold font-bold text-lg">مستوى الإنجاز العام</span>
+                    <span id="progress-text" class="text-white font-bold text-2xl">0%</span>
                 </div>
-                <div class="w-full bg-gray-800 rounded-full h-4 relative overflow-hidden">
-                    <div id="progress-bar" class="progress-bar bg-gradient-to-r from-yellow-600 to-gold h-4 rounded-full" style="width: 0%;"></div>
+                <div class="w-full bg-navyDark rounded-full h-5 relative overflow-hidden border border-white/5">
+                    <div id="progress-bar" class="bg-gradient-to-r from-yellow-700 to-gold h-5 rounded-full transition-all duration-700" style="width: 0%;"></div>
                 </div>
+                
+                <button onclick="generateReport()" class="mt-5 w-full md:w-auto px-8 py-3 bg-white/5 hover:bg-gold hover:text-navyDark text-gold border border-gold/30 rounded-xl font-bold transition-all"><i class="fa-solid fa-file-contract mr-2"></i> إصدار التقرير الشامل</button>
             </div>
         </header>
 
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div class="glass-card p-6 lg:row-span-2 hover:translate-y-[-5px]">
-                <h2 class="text-2xl font-bold text-gold mb-6 border-b border-gold/20 pb-2"><i class="fa-solid fa-list-check mr-2"></i> خارطة الطريق والمهام</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <div class="glass-card p-6 lg:col-span-2">
+                <h2 class="text-2xl font-bold text-gold mb-6 border-b border-gold/20 pb-3"><i class="fa-solid fa-list-check mr-2"></i> تفاصيل مراحل العمل والتواريخ</h2>
                 
-                <div class="space-y-6" id="task-list">
-                    <div>
-                        <h3 class="text-xl text-white font-bold mb-3"><i class="fa-solid fa-1 text-gold mr-2"></i> المرحلة 1: التأسيس وقاعدة البيانات</h3>
-                        <label class="flex items-center space-x-3 space-x-reverse mb-2 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
-                            <input type="checkbox" class="task-checkbox">
-                            <span class="text-gray-300">إعداد مشروع Flutter وربطه بـ Firebase</span>
-                        </label>
-                        <label class="flex items-center space-x-3 space-x-reverse mb-2 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
-                            <input type="checkbox" class="task-checkbox">
-                            <span class="text-gray-300">بناء هيكلة (Multi-tenant) للفنادق والضيوف</span>
-                        </label>
-                    </div>
-
-                    <div>
-                        <h3 class="text-xl text-white font-bold mb-3"><i class="fa-solid fa-2 text-gold mr-2"></i> المرحلة 2: لوحة الفنادق (B2B)</h3>
-                        <label class="flex items-center space-x-3 space-x-reverse mb-2 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
-                            <input type="checkbox" class="task-checkbox">
-                            <span class="text-gray-300">برمجة شاشة تسجيل الدخول للفنادق</span>
-                        </label>
-                        <label class="flex items-center space-x-3 space-x-reverse mb-2 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
-                            <input type="checkbox" class="task-checkbox">
-                            <span class="text-gray-300">إضافة لوحة لإنشاء مناسبة وإضافة قائمة الضيوف</span>
+                <div class="space-y-8" id="task-list">
+                    
+                    <div class="task-group">
+                        <h3 class="text-xl text-white font-bold mb-4 bg-navyLight/50 p-2 rounded-lg"><i class="fa-solid fa-server text-gold mr-2"></i> 1. تأسيس الخوادم والبيانات</h3>
+                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer transition-colors border border-transparent hover:border-white/10">
+                            <div class="flex items-center space-x-3 space-x-reverse">
+                                <input type="checkbox" class="task-checkbox" data-id="task_1">
+                                <span class="text-gray-200 font-medium text-lg">بناء قاعدة بيانات Firebase (الفنادق، المناسبات، الضيوف).</span>
+                            </div>
+                            <span class="date-stamp text-sm text-gold/70 mt-2 mr-8 empty:hidden"></span>
                         </label>
                     </div>
 
-                    <div>
-                        <h3 class="text-xl text-white font-bold mb-3"><i class="fa-solid fa-3 text-gold mr-2"></i> المرحلة 3: الذكاء الاصطناعي (AI)</h3>
-                        <label class="flex items-center space-x-3 space-x-reverse mb-2 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
-                            <input type="checkbox" class="task-checkbox">
-                            <span class="text-gray-300">تكوين مصفوفة Google Labs Flow لإنشاء التصاميم</span>
+                    <div class="task-group">
+                        <h3 class="text-xl text-white font-bold mb-4 bg-navyLight/50 p-2 rounded-lg"><i class="fa-solid fa-users-viewfinder text-gold mr-2"></i> 2. رحلة العميل واختيار التصاميم</h3>
+                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer transition-colors border border-transparent hover:border-white/10">
+                            <div class="flex items-center space-x-3 space-x-reverse">
+                                <input type="checkbox" class="task-checkbox" data-id="task_2">
+                                <span class="text-gray-200 font-medium text-lg">برمجة شاشة (جلسة العميل): عرض القوالب واختيار التصميم المبدئي.</span>
+                            </div>
+                            <span class="date-stamp text-sm text-gold/70 mt-2 mr-8 empty:hidden"></span>
                         </label>
-                        <label class="flex items-center space-x-3 space-x-reverse mb-2 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
-                            <input type="checkbox" class="task-checkbox">
-                            <span class="text-gray-300">ربط التطبيق بـ API لعرض الصور الفاخرة</span>
+                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer transition-colors border border-transparent hover:border-white/10">
+                            <div class="flex items-center space-x-3 space-x-reverse">
+                                <input type="checkbox" class="task-checkbox" data-id="task_3">
+                                <span class="text-gray-200 font-medium text-lg">برمجة شاشة (تفاصيل الحفل): إضافة أسماء العرسان، التاريخ، وقاعة الفندق.</span>
+                            </div>
+                            <span class="date-stamp text-sm text-gold/70 mt-2 mr-8 empty:hidden"></span>
                         </label>
                     </div>
 
-                    <div>
-                        <h3 class="text-xl text-white font-bold mb-3"><i class="fa-solid fa-4 text-gold mr-2"></i> المرحلة 4: تطبيق الضيف والباركود</h3>
-                        <label class="flex items-center space-x-3 space-x-reverse mb-2 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
-                            <input type="checkbox" class="task-checkbox">
-                            <span class="text-gray-300">برمجة الروابط العميقة (Deep Links) للتحميل</span>
+                    <div class="task-group">
+                        <h3 class="text-xl text-white font-bold mb-4 bg-navyLight/50 p-2 rounded-lg"><i class="fa-solid fa-wand-magic-sparkles text-gold mr-2"></i> 3. الذكاء الاصطناعي (The Matrix White & Adobe)</h3>
+                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer transition-colors border border-transparent hover:border-white/10">
+                            <div class="flex items-center space-x-3 space-x-reverse">
+                                <input type="checkbox" class="task-checkbox" data-id="task_4">
+                                <span class="text-gray-200 font-medium text-lg">ربط النظام بخوارزميات The Matrix White لمعالجة تفاصيل الرسوميات.</span>
+                            </div>
+                            <span class="date-stamp text-sm text-gold/70 mt-2 mr-8 empty:hidden"></span>
                         </label>
-                        <label class="flex items-center space-x-3 space-x-reverse mb-2 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
-                            <input type="checkbox" class="task-checkbox">
-                            <span class="text-gray-300">توليد QR Code ديناميكي آمن للضيف</span>
-                        </label>
-                        <label class="flex items-center space-x-3 space-x-reverse mb-2 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
-                            <input type="checkbox" class="task-checkbox">
-                            <span class="text-gray-300">برمجة تطبيق المنظمين لمسح الباركود</span>
+                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer transition-colors border border-transparent hover:border-white/10">
+                            <div class="flex items-center space-x-3 space-x-reverse">
+                                <input type="checkbox" class="task-checkbox" data-id="task_5">
+                                <span class="text-gray-200 font-medium text-lg">دمج طبقات (Layers) أسماء العرسان والخطوط العربية عبر بيئة Adobe.</span>
+                            </div>
+                            <span class="date-stamp text-sm text-gold/70 mt-2 mr-8 empty:hidden"></span>
                         </label>
                     </div>
+
+                    <div class="task-group">
+                        <h3 class="text-xl text-white font-bold mb-4 bg-navyLight/50 p-2 rounded-lg"><i class="fa-solid fa-qrcode text-gold mr-2"></i> 4. تطبيق الضيف والمنظمين</h3>
+                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer transition-colors border border-transparent hover:border-white/10">
+                            <div class="flex items-center space-x-3 space-x-reverse">
+                                <input type="checkbox" class="task-checkbox" data-id="task_6">
+                                <span class="text-gray-200 font-medium text-lg">برمجة الرابط العميق (Deep Link) وتأكيد الحضور (RSVP) في التطبيق.</span>
+                            </div>
+                            <span class="date-stamp text-sm text-gold/70 mt-2 mr-8 empty:hidden"></span>
+                        </label>
+                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer transition-colors border border-transparent hover:border-white/10">
+                            <div class="flex items-center space-x-3 space-x-reverse">
+                                <input type="checkbox" class="task-checkbox" data-id="task_7">
+                                <span class="text-gray-200 font-medium text-lg">توليد QR Code ديناميكي وبرمجة ماسح الباركود للموظفين عند الباب.</span>
+                            </div>
+                            <span class="date-stamp text-sm text-gold/70 mt-2 mr-8 empty:hidden"></span>
+                        </label>
+                    </div>
+
                 </div>
             </div>
 
-            <div class="glass-card p-6 hover:translate-y-[-5px]">
-                <h2 class="text-2xl font-bold text-gold mb-6 border-b border-gold/20 pb-2"><i class="fa-solid fa-sitemap mr-2"></i> المكونات التقنية للنظام</h2>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-black/40 p-4 rounded-xl border border-white/5 text-center transition-colors hover:border-gold/30">
-                        <i class="fa-solid fa-mobile-screen text-3xl text-blue-400 mb-2"></i>
-                        <h4 class="font-bold text-white">الواجهات (Flutter)</h4>
-                        <p class="text-xs text-gray-400 mt-1">تطبيق الضيف ومسح الباركود</p>
-                    </div>
-                    <div class="bg-black/40 p-4 rounded-xl border border-white/5 text-center transition-colors hover:border-gold/30">
-                        <i class="fa-solid fa-database text-3xl text-yellow-500 mb-2"></i>
-                        <h4 class="font-bold text-white">الخوادم (Firebase)</h4>
-                        <p class="text-xs text-gray-400 mt-1">قاعدة البيانات السحابية</p>
-                    </div>
-                    <div class="bg-black/40 p-4 rounded-xl border border-white/5 text-center transition-colors hover:border-gold/30">
-                        <i class="fa-solid fa-brain text-3xl text-purple-400 mb-2"></i>
-                        <h4 class="font-bold text-white">الذكاء الاصطناعي</h4>
-                        <p class="text-xs text-gray-400 mt-1">Google Labs Flow</p>
-                    </div>
-                    <div class="bg-black/40 p-4 rounded-xl border border-white/5 text-center transition-colors hover:border-gold/30">
-                        <i class="fa-solid fa-credit-card text-3xl text-green-400 mb-2"></i>
-                        <h4 class="font-bold text-white">بوابات الدفع</h4>
-                        <p class="text-xs text-gray-400 mt-1">Tap Payments</p>
-                    </div>
+            <div class="space-y-8">
+                <div class="glass-card p-6">
+                    <h2 class="text-xl font-bold text-gold mb-4 border-b border-gold/20 pb-2">المحركات المعتمدة</h2>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><i class="fa-solid fa-check text-green-400 mr-2 ml-2"></i> الواجهات: <b>Flutter</b></li>
+                        <li><i class="fa-solid fa-check text-green-400 mr-2 ml-2"></i> الخوادم: <b>Firebase</b></li>
+                        <li><i class="fa-solid fa-check text-green-400 mr-2 ml-2"></i> التصميم (AI): <b>Adobe / Matrix White</b></li>
+                        <li><i class="fa-solid fa-check text-green-400 mr-2 ml-2"></i> الدفع: <b>Tap Payments</b></li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="glass-card p-6 hover:translate-y-[-5px]">
-                <h2 class="text-2xl font-bold text-gold mb-6 border-b border-gold/20 pb-2"><i class="fa-solid fa-route mr-2"></i> رحلة الضيف (User Flow)</h2>
-                <ul class="space-y-4">
-                    <li class="flex items-center"><span class="bg-gradient-to-br from-gold to-yellow-600 text-[#2A0505] font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3 ml-3 shadow-lg">1</span> <span class="text-gray-200">الفندق يرسل رسالة SMS للضيف.</span></li>
-                    <li class="flex items-center"><span class="bg-gradient-to-br from-gold to-yellow-600 text-[#2A0505] font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3 ml-3 shadow-lg">2</span> <span class="text-gray-200">الضيف يفتح رابط الويب الأنيق.</span></li>
-                    <li class="flex items-center"><span class="bg-gradient-to-br from-gold to-yellow-600 text-[#2A0505] font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3 ml-3 shadow-lg">3</span> <span class="text-gray-200">الرابط يوجهه لتحميل التطبيق (Deep Link).</span></li>
-                    <li class="flex items-center"><span class="bg-gradient-to-br from-gold to-yellow-600 text-[#2A0505] font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3 ml-3 shadow-lg">4</span> <span class="text-gray-200">تأكيد الحضور من التطبيق وظهور الـ QR.</span></li>
-                    <li class="flex items-center"><span class="bg-gradient-to-br from-gold to-yellow-600 text-[#2A0505] font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3 ml-3 shadow-lg">5</span> <span class="text-gray-200">المسح عند بوابة القاعة.</span></li>
+        </div>
+    </div>
+
+    <div id="reportModal" class="fixed inset-0 bg-navyDark/90 z-[99999] items-center justify-center backdrop-blur-sm transition-opacity">
+        <div class="w-[min(600px,95vw)] glass-card p-8 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeReport()" class="absolute top-4 left-4 text-gray-400 hover:text-white text-2xl"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="text-3xl font-bold text-gold mb-2"><i class="fa-solid fa-chart-line mr-2"></i> التقرير الشامل للمشروع</h2>
+            <p class="text-gray-400 mb-6" id="report-meta">يتم توليد البيانات...</p>
+            
+            <div class="bg-navyDark/50 p-4 rounded-xl border border-white/5 mb-6">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-white">نسبة الإنجاز الفعلية:</span>
+                    <span id="report-percentage" class="text-gold font-bold text-xl">0%</span>
+                </div>
+            </div>
+
+            <h3 class="text-lg font-bold text-white mb-3 border-b border-white/10 pb-2">سجل المهام المنجزة وتواريخها:</h3>
+            <ul id="report-completed-list" class="space-y-3 text-gray-300 text-sm">
                 </ul>
-            </div>
         </div>
     </div>
 
     <script>
-        // --- منطق بوابة المرور (Password Logic) ---
+        // --- 1. البوابة ---
         function checkPassword() {
-            const password = document.getElementById('passwordInput').value;
+            const pwd = document.getElementById('passwordInput').value;
             const gate = document.getElementById('passwordGate');
-            const errorMsg = document.getElementById('passwordError');
-            
-            if (password === 'zwaaj2026') {
+            if (pwd === 'zwaaj2026') {
                 sessionStorage.setItem('zwaajUnlocked', 'true');
-                gate.style.opacity = '0'; // تأثير التلاشي
+                gate.style.opacity = '0';
                 setTimeout(() => { gate.style.display = 'none'; }, 500);
             } else {
-                errorMsg.style.display = 'block';
+                document.getElementById('passwordError').style.display = 'block';
             }
         }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const gate = document.getElementById('passwordGate');
-            
-            // التحقق من الجلسة حتى لا يطلب الرقم السري عند كل تحديث للصفحة
+        document.addEventListener('DOMContentLoaded', () => {
             if (sessionStorage.getItem('zwaajUnlocked') === 'true') {
-                gate.style.display = 'none';
+                document.getElementById('passwordGate').style.display = 'none';
             }
-
-            // تفعيل زر Enter
-            document.getElementById('passwordInput').addEventListener('keydown', function (event) {
-                if (event.key === 'Enter') {
-                    checkPassword();
-                }
-            });
+            document.getElementById('passwordInput').addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
+            loadTasks(); // تحميل البيانات المحفوظة
         });
 
-        // --- منطق شريط التقدم (Progress Bar Logic) ---
+        // --- 2. نظام حفظ التواريخ والمهام (LocalStorage) ---
         const checkboxes = document.querySelectorAll('.task-checkbox');
         const progressBar = document.getElementById('progress-bar');
         const progressText = document.getElementById('progress-text');
 
-        function updateProgress() {
-            const totalTasks = checkboxes.length;
-            const completedTasks = document.querySelectorAll('.task-checkbox:checked').length;
-            const percentage = Math.round((completedTasks / totalTasks) * 100);
-            
-            progressBar.style.width = percentage + '%';
-            progressText.innerText = percentage + '%';
-            
-            if(percentage === 100) {
-                progressText.style.color = '#10B981'; // أخضر عند الانتهاء
-            } else {
-                progressText.style.color = '#F8F9FA';
-            }
+        function loadTasks() {
+            const savedData = JSON.parse(localStorage.getItem('zwaajData')) || {};
+            checkboxes.forEach(box => {
+                const id = box.getAttribute('data-id');
+                const dateSpan = box.closest('label').querySelector('.date-stamp');
+                
+                if (savedData[id]) {
+                    box.checked = savedData[id].checked;
+                    dateSpan.innerText = savedData[id].date ? `(تم الإنجاز في: ${savedData[id].date})` : '';
+                }
+            });
+            calculateProgress();
         }
 
-        checkboxes.forEach(box => {
-            box.addEventListener('change', updateProgress);
-        });
+        function saveTask(event) {
+            const box = event.target;
+            const id = box.getAttribute('data-id');
+            const dateSpan = box.closest('label').querySelector('.date-stamp');
+            let savedData = JSON.parse(localStorage.getItem('zwaajData')) || {};
+
+            if (box.checked) {
+                // توليد التاريخ والوقت لحظة الضغط
+                const now = new Date();
+                const dateString = now.toLocaleDateString('ar-QA') + ' - ' + now.toLocaleTimeString('ar-QA');
+                savedData[id] = { checked: true, date: dateString, title: box.nextElementSibling.innerText };
+                dateSpan.innerText = `(تم الإنجاز في: ${dateString})`;
+            } else {
+                savedData[id] = { checked: false, date: null, title: box.nextElementSibling.innerText };
+                dateSpan.innerText = '';
+            }
+            localStorage.setItem('zwaajData', JSON.stringify(savedData));
+            calculateProgress();
+        }
+
+        function calculateProgress() {
+            const total = checkboxes.length;
+            const completed = document.querySelectorAll('.task-checkbox:checked').length;
+            const pct = Math.round((completed / total) * 100);
+            progressBar.style.width = pct + '%';
+            progressText.innerText = pct + '%';
+            progressText.style.color = pct === 100 ? '#10B981' : '#F8F9FA';
+        }
+
+        checkboxes.forEach(box => box.addEventListener('change', saveTask));
+
+        // --- 3. نظام التقرير الشامل ---
+        function generateReport() {
+            const savedData = JSON.parse(localStorage.getItem('zwaajData')) || {};
+            const listContainer = document.getElementById('report-completed-list');
+            listContainer.innerHTML = '';
+            
+            let completedCount = 0;
+            const now = new Date();
+            document.getElementById('report-meta').innerText = `تاريخ إصدار التقرير: ${now.toLocaleDateString('ar-QA')} | ${now.toLocaleTimeString('ar-QA')}`;
+
+            Object.keys(savedData).forEach(key => {
+                if (savedData[key].checked) {
+                    completedCount++;
+                    const li = document.createElement('li');
+                    li.innerHTML = `<i class="fa-solid fa-check text-green-400 mr-2 ml-2"></i> <span class="text-white">${savedData[key].title}</span> <br> <span class="text-gold/70 text-xs mr-6">${savedData[key].date}</span>`;
+                    listContainer.appendChild(li);
+                }
+            });
+
+            if (completedCount === 0) {
+                listContainer.innerHTML = '<li class="text-gray-500">لم يتم إنجاز أي مهام بعد.</li>';
+            }
+
+            const pct = Math.round((completedCount / checkboxes.length) * 100);
+            document.getElementById('report-percentage').innerText = pct + '%';
+            
+            document.getElementById('reportModal').classList.add('active');
+        }
+
+        function closeReport() {
+            document.getElementById('reportModal').classList.remove('active');
+        }
     </script>
 </body>
 </html>
