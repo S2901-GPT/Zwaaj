@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة الزفاف القطرية | لوحة القيادة التفصيلية</title>
+    <title>منصة الزفاف القطرية | لوحة القيادة المعمارية</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -14,12 +14,10 @@
                 extend: {
                     fontFamily: { sans: ['Tajawal', 'sans-serif'] },
                     colors: {
-                        /* الكحلي المريح للعين والمطفي */
                         navyBase: '#0F172A',
                         navyLight: '#1E293B',
                         navyDark: '#020617',
                         gold: '#D4AF37',
-                        goldLight: '#F3E5AB'
                     }
                 }
             }
@@ -34,16 +32,11 @@
         .glass-card {
             background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(212, 175, 55, 0.15);
             border-radius: 1.5rem;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s ease, border-color 0.3s ease;
         }
-        .glass-card:hover { border-color: rgba(212, 175, 55, 0.5); }
         input[type="checkbox"] { accent-color: #D4AF37; width: 1.3rem; height: 1.3rem; cursor: pointer; }
-        
-        /* تصميم التقرير المنبثق */
         #reportModal { display: none; }
         #reportModal.active { display: flex; }
     </style>
@@ -55,7 +48,7 @@
             <div class="text-gold font-black tracking-widest mb-3">ZWAAJ PRIVATE</div>
             <h1 class="text-3xl font-bold mb-3 text-gold">دخول خاص</h1>
             <input id="passwordInput" type="password" placeholder="كلمة المرور" dir="ltr" class="w-full p-4 rounded-xl border border-gold/30 bg-black/40 text-white text-center text-lg outline-none focus:border-gold mb-4">
-            <button onclick="checkPassword()" class="w-full p-4 rounded-xl bg-gold text-navyDark font-black text-lg hover:scale-[102%] transition-transform">دخول</button>
+            <button onclick="checkPassword()" class="w-full p-4 rounded-xl bg-gold text-navyDark font-black text-lg">دخول</button>
             <div id="passwordError" class="hidden text-red-400 mt-4 text-sm font-bold">كلمة المرور غير صحيحة</div>
         </div>
     </div>
@@ -63,8 +56,8 @@
     <div class="max-w-7xl mx-auto p-6 md:p-0 pt-8">
         
         <header class="mb-10 text-center">
-            <h1 class="text-3xl md:text-5xl font-extrabold text-gold mb-4 drop-shadow-lg"><i class="fa-solid fa-gem mr-3"></i> منصة الزفاف الفاخرة (التفصيلية)</h1>
-            <p class="text-lg text-gray-400 mb-8">نظام التتبع الشامل - معتمد على The Matrix White & Adobe</p>
+            <h1 class="text-3xl md:text-5xl font-extrabold text-gold mb-4 drop-shadow-lg"><i class="fa-solid fa-gem mr-3"></i> المنصة المعمارية (B2B2C)</h1>
+            <p class="text-lg text-gray-400 mb-8">الهيكلة الدقيقة - Matrix Visual AI & Adobe</p>
             
             <div class="max-w-3xl mx-auto glass-card p-5">
                 <div class="flex justify-between items-center mb-3">
@@ -74,78 +67,70 @@
                 <div class="w-full bg-navyDark rounded-full h-5 relative overflow-hidden border border-white/5">
                     <div id="progress-bar" class="bg-gradient-to-r from-yellow-700 to-gold h-5 rounded-full transition-all duration-700" style="width: 0%;"></div>
                 </div>
-                
-                <button onclick="generateReport()" class="mt-5 w-full md:w-auto px-8 py-3 bg-white/5 hover:bg-gold hover:text-navyDark text-gold border border-gold/30 rounded-xl font-bold transition-all"><i class="fa-solid fa-file-contract mr-2"></i> إصدار التقرير الشامل</button>
+                <button onclick="generateReport()" class="mt-5 w-full md:w-auto px-8 py-3 bg-white/5 hover:bg-gold hover:text-navyDark text-gold border border-gold/30 rounded-xl font-bold transition-all">إصدار التقرير الشامل</button>
             </div>
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
             <div class="glass-card p-6 lg:col-span-2">
-                <h2 class="text-2xl font-bold text-gold mb-6 border-b border-gold/20 pb-3"><i class="fa-solid fa-list-check mr-2"></i> تفاصيل مراحل العمل والتواريخ</h2>
+                <h2 class="text-2xl font-bold text-gold mb-6 border-b border-gold/20 pb-3">تفاصيل مراحل العمل والتواريخ</h2>
                 
                 <div class="space-y-8" id="task-list">
                     
                     <div class="task-group">
-                        <h3 class="text-xl text-white font-bold mb-4 bg-navyLight/50 p-2 rounded-lg"><i class="fa-solid fa-server text-gold mr-2"></i> 1. تأسيس الخوادم والبيانات</h3>
-                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer transition-colors border border-transparent hover:border-white/10">
+                        <h3 class="text-xl text-white font-bold mb-4 bg-navyLight/50 p-2 rounded-lg">1. تأسيس الخوادم والبيانات (Multi-Tenant)</h3>
+                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer">
                             <div class="flex items-center space-x-3 space-x-reverse">
-                                <input type="checkbox" class="task-checkbox" data-id="task_1">
-                                <span class="text-gray-200 font-medium text-lg">بناء قاعدة بيانات Firebase (الفنادق، المناسبات، الضيوف).</span>
+                                <input type="checkbox" class="task-checkbox" data-id="t1">
+                                <span class="text-gray-200 font-medium text-lg">بناء قاعدة بيانات Firebase (فصل بيانات الفنادق، المناسبات، الضيوف).</span>
                             </div>
                             <span class="date-stamp text-sm text-gold/70 mt-2 mr-8 empty:hidden"></span>
                         </label>
                     </div>
 
                     <div class="task-group">
-                        <h3 class="text-xl text-white font-bold mb-4 bg-navyLight/50 p-2 rounded-lg"><i class="fa-solid fa-users-viewfinder text-gold mr-2"></i> 2. رحلة العميل واختيار التصاميم</h3>
-                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer transition-colors border border-transparent hover:border-white/10">
+                        <h3 class="text-xl text-white font-bold mb-4 bg-navyLight/50 p-2 rounded-lg">2. رحلة العميل (B2B Dashboard)</h3>
+                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer">
                             <div class="flex items-center space-x-3 space-x-reverse">
-                                <input type="checkbox" class="task-checkbox" data-id="task_2">
-                                <span class="text-gray-200 font-medium text-lg">برمجة شاشة (جلسة العميل): عرض القوالب واختيار التصميم المبدئي.</span>
-                            </div>
-                            <span class="date-stamp text-sm text-gold/70 mt-2 mr-8 empty:hidden"></span>
-                        </label>
-                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer transition-colors border border-transparent hover:border-white/10">
-                            <div class="flex items-center space-x-3 space-x-reverse">
-                                <input type="checkbox" class="task-checkbox" data-id="task_3">
-                                <span class="text-gray-200 font-medium text-lg">برمجة شاشة (تفاصيل الحفل): إضافة أسماء العرسان، التاريخ، وقاعة الفندق.</span>
+                                <input type="checkbox" class="task-checkbox" data-id="t2">
+                                <span class="text-gray-200 font-medium text-lg">برمجة لوحة الفندق: إنشاء مناسبة وإدخال بيانات العرسان وقائمة الضيوف.</span>
                             </div>
                             <span class="date-stamp text-sm text-gold/70 mt-2 mr-8 empty:hidden"></span>
                         </label>
                     </div>
 
                     <div class="task-group">
-                        <h3 class="text-xl text-white font-bold mb-4 bg-navyLight/50 p-2 rounded-lg"><i class="fa-solid fa-wand-magic-sparkles text-gold mr-2"></i> 3. الذكاء الاصطناعي (The Matrix White & Adobe)</h3>
-                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer transition-colors border border-transparent hover:border-white/10">
+                        <h3 class="text-xl text-white font-bold mb-4 bg-navyLight/50 p-2 rounded-lg">3. محرك التصميم (Matrix Visual AI & Adobe)</h3>
+                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer">
                             <div class="flex items-center space-x-3 space-x-reverse">
-                                <input type="checkbox" class="task-checkbox" data-id="task_4">
-                                <span class="text-gray-200 font-medium text-lg">ربط النظام بخوارزميات The Matrix White لمعالجة تفاصيل الرسوميات.</span>
+                                <input type="checkbox" class="task-checkbox" data-id="t3">
+                                <span class="text-gray-200 font-medium text-lg">ربط Matrix Visual AI لتوليد الخلفيات والرسوميات المعقدة.</span>
                             </div>
                             <span class="date-stamp text-sm text-gold/70 mt-2 mr-8 empty:hidden"></span>
                         </label>
-                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer transition-colors border border-transparent hover:border-white/10">
+                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer">
                             <div class="flex items-center space-x-3 space-x-reverse">
-                                <input type="checkbox" class="task-checkbox" data-id="task_5">
-                                <span class="text-gray-200 font-medium text-lg">دمج طبقات (Layers) أسماء العرسان والخطوط العربية عبر بيئة Adobe.</span>
+                                <input type="checkbox" class="task-checkbox" data-id="t4">
+                                <span class="text-gray-200 font-medium text-lg">تفكيك الطبقات (Layers) عبر بيئة Adobe لدمج الخطوط العربية بكسل بكسل.</span>
                             </div>
                             <span class="date-stamp text-sm text-gold/70 mt-2 mr-8 empty:hidden"></span>
                         </label>
                     </div>
 
                     <div class="task-group">
-                        <h3 class="text-xl text-white font-bold mb-4 bg-navyLight/50 p-2 rounded-lg"><i class="fa-solid fa-qrcode text-gold mr-2"></i> 4. تطبيق الضيف والمنظمين</h3>
-                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer transition-colors border border-transparent hover:border-white/10">
+                        <h3 class="text-xl text-white font-bold mb-4 bg-navyLight/50 p-2 rounded-lg">4. رحلة الضيف والروابط العميقة (App-Centric)</h3>
+                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer">
                             <div class="flex items-center space-x-3 space-x-reverse">
-                                <input type="checkbox" class="task-checkbox" data-id="task_6">
-                                <span class="text-gray-200 font-medium text-lg">برمجة الرابط العميق (Deep Link) وتأكيد الحضور (RSVP) في التطبيق.</span>
+                                <input type="checkbox" class="task-checkbox" data-id="t5">
+                                <span class="text-gray-200 font-medium text-lg">برمجة الرابط العميق (Deep Link) وتوجيه الضيف لصفحة الويب ثم التطبيق.</span>
                             </div>
                             <span class="date-stamp text-sm text-gold/70 mt-2 mr-8 empty:hidden"></span>
                         </label>
-                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer transition-colors border border-transparent hover:border-white/10">
+                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer">
                             <div class="flex items-center space-x-3 space-x-reverse">
-                                <input type="checkbox" class="task-checkbox" data-id="task_7">
-                                <span class="text-gray-200 font-medium text-lg">توليد QR Code ديناميكي وبرمجة ماسح الباركود للموظفين عند الباب.</span>
+                                <input type="checkbox" class="task-checkbox" data-id="t6">
+                                <span class="text-gray-200 font-medium text-lg">تأكيد الحضور من داخل التطبيق (RSVP) وتوليد الـ QR الديناميكي.</span>
                             </div>
                             <span class="date-stamp text-sm text-gold/70 mt-2 mr-8 empty:hidden"></span>
                         </label>
@@ -156,12 +141,23 @@
 
             <div class="space-y-8">
                 <div class="glass-card p-6">
-                    <h2 class="text-xl font-bold text-gold mb-4 border-b border-gold/20 pb-2">المحركات المعتمدة</h2>
+                    <h2 class="text-xl font-bold text-gold mb-4 border-b border-gold/20 pb-2">البنية التحتية</h2>
                     <ul class="space-y-3 text-gray-300">
-                        <li><i class="fa-solid fa-check text-green-400 mr-2 ml-2"></i> الواجهات: <b>Flutter</b></li>
-                        <li><i class="fa-solid fa-check text-green-400 mr-2 ml-2"></i> الخوادم: <b>Firebase</b></li>
-                        <li><i class="fa-solid fa-check text-green-400 mr-2 ml-2"></i> التصميم (AI): <b>Adobe / Matrix White</b></li>
-                        <li><i class="fa-solid fa-check text-green-400 mr-2 ml-2"></i> الدفع: <b>Tap Payments</b></li>
+                        <li><i class="fa-solid fa-mobile text-blue-400 mr-2 ml-2"></i> الواجهات: <b>Flutter</b></li>
+                        <li><i class="fa-solid fa-server text-yellow-500 mr-2 ml-2"></i> الخوادم: <b>Firebase</b></li>
+                        <li><i class="fa-solid fa-brain text-purple-400 mr-2 ml-2"></i> الذكاء الاصطناعي: <b>Matrix Visual AI</b></li>
+                        <li><i class="fa-solid fa-layer-group text-red-400 mr-2 ml-2"></i> معالجة التصميم: <b>Adobe Engine</b></li>
+                    </ul>
+                </div>
+
+                <div class="glass-card p-6">
+                    <h2 class="text-xl font-bold text-gold mb-4 border-b border-gold/20 pb-2">مسار النظام (User Flow)</h2>
+                    <ul class="space-y-4 text-sm text-gray-300">
+                        <li><b>1.</b> الفندق يصمم ويضيف الضيوف.</li>
+                        <li><b>2.</b> مشاركة الرابط عبر (SMS/WA).</li>
+                        <li><b>3.</b> فتح صفحة هبوط الويب الفاخرة.</li>
+                        <li><b>4.</b> التحويل لتحميل التطبيق (Deep Link).</li>
+                        <li><b>5.</b> التفاعل، تأكيد الحضور، والباركود بالداخل.</li>
                     </ul>
                 </div>
             </div>
@@ -169,34 +165,28 @@
         </div>
     </div>
 
-    <div id="reportModal" class="fixed inset-0 bg-navyDark/90 z-[99999] items-center justify-center backdrop-blur-sm transition-opacity">
+    <div id="reportModal" class="fixed inset-0 bg-navyDark/90 z-[99999] items-center justify-center backdrop-blur-sm">
         <div class="w-[min(600px,95vw)] glass-card p-8 relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeReport()" class="absolute top-4 left-4 text-gray-400 hover:text-white text-2xl"><i class="fa-solid fa-xmark"></i></button>
-            <h2 class="text-3xl font-bold text-gold mb-2"><i class="fa-solid fa-chart-line mr-2"></i> التقرير الشامل للمشروع</h2>
-            <p class="text-gray-400 mb-6" id="report-meta">يتم توليد البيانات...</p>
-            
+            <h2 class="text-3xl font-bold text-gold mb-2">التقرير الشامل للمشروع</h2>
+            <p class="text-gray-400 mb-6" id="report-meta"></p>
             <div class="bg-navyDark/50 p-4 rounded-xl border border-white/5 mb-6">
                 <div class="flex justify-between items-center mb-2">
                     <span class="text-white">نسبة الإنجاز الفعلية:</span>
                     <span id="report-percentage" class="text-gold font-bold text-xl">0%</span>
                 </div>
             </div>
-
-            <h3 class="text-lg font-bold text-white mb-3 border-b border-white/10 pb-2">سجل المهام المنجزة وتواريخها:</h3>
-            <ul id="report-completed-list" class="space-y-3 text-gray-300 text-sm">
-                </ul>
+            <ul id="report-completed-list" class="space-y-3 text-gray-300 text-sm"></ul>
         </div>
     </div>
 
     <script>
-        // --- 1. البوابة ---
+        // البوابة
         function checkPassword() {
             const pwd = document.getElementById('passwordInput').value;
-            const gate = document.getElementById('passwordGate');
             if (pwd === 'zwaaj2026') {
                 sessionStorage.setItem('zwaajUnlocked', 'true');
-                gate.style.opacity = '0';
-                setTimeout(() => { gate.style.display = 'none'; }, 500);
+                document.getElementById('passwordGate').style.display = 'none';
             } else {
                 document.getElementById('passwordError').style.display = 'block';
             }
@@ -206,10 +196,10 @@
                 document.getElementById('passwordGate').style.display = 'none';
             }
             document.getElementById('passwordInput').addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
-            loadTasks(); // تحميل البيانات المحفوظة
+            loadTasks();
         });
 
-        // --- 2. نظام حفظ التواريخ والمهام (LocalStorage) ---
+        // التواريخ والمهام
         const checkboxes = document.querySelectorAll('.task-checkbox');
         const progressBar = document.getElementById('progress-bar');
         const progressText = document.getElementById('progress-text');
@@ -219,7 +209,6 @@
             checkboxes.forEach(box => {
                 const id = box.getAttribute('data-id');
                 const dateSpan = box.closest('label').querySelector('.date-stamp');
-                
                 if (savedData[id]) {
                     box.checked = savedData[id].checked;
                     dateSpan.innerText = savedData[id].date ? `(تم الإنجاز في: ${savedData[id].date})` : '';
@@ -235,7 +224,6 @@
             let savedData = JSON.parse(localStorage.getItem('zwaajData')) || {};
 
             if (box.checked) {
-                // توليد التاريخ والوقت لحظة الضغط
                 const now = new Date();
                 const dateString = now.toLocaleDateString('ar-QA') + ' - ' + now.toLocaleTimeString('ar-QA');
                 savedData[id] = { checked: true, date: dateString, title: box.nextElementSibling.innerText };
@@ -259,38 +247,29 @@
 
         checkboxes.forEach(box => box.addEventListener('change', saveTask));
 
-        // --- 3. نظام التقرير الشامل ---
+        // التقرير
         function generateReport() {
             const savedData = JSON.parse(localStorage.getItem('zwaajData')) || {};
             const listContainer = document.getElementById('report-completed-list');
             listContainer.innerHTML = '';
-            
-            let completedCount = 0;
+            let count = 0;
             const now = new Date();
             document.getElementById('report-meta').innerText = `تاريخ إصدار التقرير: ${now.toLocaleDateString('ar-QA')} | ${now.toLocaleTimeString('ar-QA')}`;
 
             Object.keys(savedData).forEach(key => {
                 if (savedData[key].checked) {
-                    completedCount++;
+                    count++;
                     const li = document.createElement('li');
                     li.innerHTML = `<i class="fa-solid fa-check text-green-400 mr-2 ml-2"></i> <span class="text-white">${savedData[key].title}</span> <br> <span class="text-gold/70 text-xs mr-6">${savedData[key].date}</span>`;
                     listContainer.appendChild(li);
                 }
             });
-
-            if (completedCount === 0) {
-                listContainer.innerHTML = '<li class="text-gray-500">لم يتم إنجاز أي مهام بعد.</li>';
-            }
-
-            const pct = Math.round((completedCount / checkboxes.length) * 100);
-            document.getElementById('report-percentage').innerText = pct + '%';
-            
+            if (count === 0) listContainer.innerHTML = '<li class="text-gray-500">لم يتم إنجاز أي مهام بعد.</li>';
+            document.getElementById('report-percentage').innerText = Math.round((count / checkboxes.length) * 100) + '%';
             document.getElementById('reportModal').classList.add('active');
         }
 
-        function closeReport() {
-            document.getElementById('reportModal').classList.remove('active');
-        }
+        function closeReport() { document.getElementById('reportModal').classList.remove('active'); }
     </script>
 </body>
 </html>
