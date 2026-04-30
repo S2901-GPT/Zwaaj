@@ -1,589 +1,114 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Qatari Luxury Wedding Platform: Smart Architecture</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منصة زواج SaaS للفنادق</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+adaam:'#4A0E0E',
+card:'#5A1616',
+gold:'#D4AF37',
+pearl:'#F8F9FA'
+},
+fontFamily:{tajawal:['Tajawal']}
+}
+}
+}
+</script>
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            royalGold: '#D4AF37',
-            deepBlack: '#070707',
-            charcoal: '#111111',
-            softCharcoal: '#1A1A1A',
-            pearl: '#F7F1E1',
-            mutedGold: '#8C7425'
-          },
-          fontFamily: {
-            tajawal: ['Tajawal', 'sans-serif']
-          },
-          boxShadow: {
-            gold: '0 0 26px rgba(212, 175, 55, 0.18)',
-            goldSoft: '0 18px 70px rgba(212, 175, 55, 0.10)'
-          }
-        }
-      }
-    };
-  </script>
-
-  <style>
-    :root {
-      --gold: #D4AF37;
-      --pearl: #F7F1E1;
-      --black: #070707;
-      --charcoal: #111111;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Tajawal', sans-serif;
-      min-height: 100vh;
-      color: var(--pearl);
-      background:
-        radial-gradient(circle at 12% 8%, rgba(212, 175, 55, 0.13), transparent 28%),
-        radial-gradient(circle at 88% 14%, rgba(255, 242, 184, 0.06), transparent 26%),
-        radial-gradient(circle at 50% 115%, rgba(212, 175, 55, 0.09), transparent 32%),
-        linear-gradient(135deg, #050505 0%, #0B0B0B 45%, #141414 100%);
-    }
-
-    .glass-card {
-      background: linear-gradient(145deg, rgba(22, 22, 22, 0.94), rgba(7, 7, 7, 0.96));
-      border: 1px solid rgba(212, 175, 55, 0.22);
-      box-shadow: 0 22px 70px rgba(0, 0, 0, 0.42);
-      backdrop-filter: blur(18px);
-    }
-
-    .gold-gradient {
-      background: linear-gradient(90deg, #8C7425 0%, #D4AF37 42%, #FFF2B8 52%, #D4AF37 66%, #8C7425 100%);
-    }
-
-    .text-gold-gradient {
-      background: linear-gradient(90deg, #D4AF37, #FFF2B8, #D4AF37);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .luxury-border { position: relative; }
-    .luxury-border::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 1.5rem;
-      padding: 1px;
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.55), rgba(255,255,255,0.06), rgba(212, 175, 55, 0.14));
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-    }
-
-    .flow-node {
-      min-height: 122px;
-      background: rgba(255,255,255,0.025);
-      border: 1px solid rgba(212, 175, 55, 0.20);
-    }
-
-    .flow-arrow::after {
-      content: '←';
-      color: var(--gold);
-      font-size: 1.8rem;
-      font-weight: 900;
-      opacity: 0.72;
-    }
-
-    @media (max-width: 1023px) {
-      .flow-arrow::after { content: '↓'; }
-    }
-
-    .mermaid {
-      direction: ltr;
-      display: flex;
-      justify-content: center;
-      overflow-x: auto;
-      padding: 1rem;
-      border-radius: 1rem;
-      background: rgba(0,0,0,0.25);
-      border: 1px solid rgba(212,175,55,0.14);
-    }
-
-    .phase-button.active {
-      background: #D4AF37;
-      color: #070707;
-      border-color: #D4AF37;
-      box-shadow: 0 0 28px rgba(212,175,55,0.24);
-    }
-
-    .task-checkbox {
-      accent-color: #D4AF37;
-      width: 1.1rem;
-      height: 1.1rem;
-      cursor: pointer;
-    }
-
-    .task-item.completed span {
-      text-decoration: line-through;
-      color: rgba(247,241,225,0.45);
-    }
-
-    canvas { max-height: 365px; }
-
-    ::selection {
-      background: rgba(212,175,55,0.36);
-      color: white;
-    }
-  </style>
+<style>
+body{background:#4A0E0E;color:#F8F9FA;font-family:Tajawal}
+.card{background:#5A1616;border:1px solid rgba(212,175,55,.3)}
+.gold{color:#D4AF37}
+.task-done span{text-decoration:line-through;opacity:.5}
+</style>
 </head>
 
-<body class="font-tajawal antialiased">
-  <div id="passwordGate" style="position:fixed;inset:0;background:#070707;z-index:999999;display:flex;align-items:center;justify-content:center;font-family:Tajawal,sans-serif;">
-  <div style="width:min(420px,90vw);background:#111;border:1px solid #D4AF37;border-radius:24px;padding:32px;text-align:center;color:#F7F1E1;box-shadow:0 20px 80px rgba(0,0,0,.6);">
-    <div style="color:#D4AF37;font-weight:900;letter-spacing:3px;margin-bottom:12px;">PRIVATE</div>
-    <h1 style="font-size:32px;margin:0 0 12px;color:#D4AF37;">دخول خاص</h1>
-    <p style="opacity:.7;margin-bottom:22px;">أدخل كلمة المرور لعرض الداشبورد</p>
-    <input id="passwordInput" type="password" placeholder="كلمة المرور" style="width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(212,175,55,.4);background:#050505;color:#F7F1E1;text-align:center;font-size:18px;outline:none;">
-    <button onclick="checkPassword()" style="width:100%;margin-top:14px;padding:14px;border:0;border-radius:14px;background:#D4AF37;color:#070707;font-weight:900;font-size:17px;">دخول</button>
-    <div id="passwordError" style="display:none;color:#ff8a8a;margin-top:14px;">كلمة المرور غير صحيحة</div>
-  </div>
+<body class="p-6">
+
+<div class="max-w-7xl mx-auto space-y-6">
+
+<header class="card p-6 rounded-2xl">
+<h1 class="text-4xl font-black gold">منصة الزفاف الفاخرة للفنادق</h1>
+<p class="opacity-70 mt-2">لوحة SaaS منظمة (B2B2C)</p>
+</header>
+
+<section class="card p-6 rounded-2xl">
+<h2 class="text-2xl font-black gold mb-4">تدفق النظام</h2>
+<div class="grid md:grid-cols-7 gap-3 text-center">
+<div>الفندق</div>
+<div>إضافة ضيوف</div>
+<div>SMS</div>
+<div>Landing</div>
+<div>تحميل</div>
+<div>RSVP</div>
+<div>QR Scan</div>
+</div>
+</section>
+
+<section class="card p-6 rounded-2xl">
+<h2 class="text-2xl font-black gold mb-4">قاعدة البيانات</h2>
+<div class="mermaid">
+erDiagram
+PARTNERS ||--o{ EVENTS : owns
+EVENTS ||--o{ GUESTS : contains
+PARTNERS ||--o{ STAFF : employs
+</div>
+</section>
+
+<section class="card p-6 rounded-2xl">
+<h2 class="text-2xl font-black gold mb-4">المكونات</h2>
+<div class="grid md:grid-cols-4 gap-3">
+<div>Flutter Web</div>
+<div>Flutter Mobile</div>
+<div>AI (Flow Builder)</div>
+<div>Tap Payments</div>
+</div>
+</section>
+
+<section class="card p-6 rounded-2xl">
+<h2 class="text-2xl font-black gold mb-4">المراحل</h2>
+<canvas id="chart"></canvas>
+</section>
+
+<section class="card p-6 rounded-2xl">
+<h2 class="text-2xl font-black gold mb-4">المهام</h2>
+<div id="tasks"></div>
+</section>
+
 </div>
 
 <script>
-  function checkPassword() {
-    const password = document.getElementById('passwordInput').value;
-    if (password === 'zwaaj2026') {
-      sessionStorage.setItem('zwaajUnlocked', 'true');
-      document.getElementById('passwordGate').style.display = 'none';
-    } else {
-      document.getElementById('passwordError').style.display = 'block';
-    }
-  }
+const phases=[
+{t:"Firebase",tasks:["Auth","DB","Security"]},
+{t:"Dashboard",tasks:["Hotel Panel","Events"]},
+{t:"Deep Links",tasks:["Links","Guest App"]},
+{t:"AI",tasks:["Flow","Assets"]},
+{t:"QR",tasks:["QR","Scanner"]}
+];
 
-  document.addEventListener('DOMContentLoaded', function () {
-    if (sessionStorage.getItem('zwaajUnlocked') === 'true') {
-      document.getElementById('passwordGate').style.display = 'none';
-    }
+const ctx=document.getElementById('chart');
+new Chart(ctx,{type:'bar',data:{labels:phases.map(p=>p.t),datasets:[{data:[2,3,2,3,2]}]}});
 
-    document.getElementById('passwordInput').addEventListener('keydown', function (event) {
-      if (event.key === 'Enter') {
-        checkPassword();
-      }
-    });
-  });
+const box=document.getElementById('tasks');
+phases.forEach(p=>{
+let d=document.createElement('div');
+d.innerHTML="<h3>"+p.t+"</h3>"+p.tasks.map(t=>`<label><input type="checkbox"> ${t}</label>`).join("<br>");
+box.appendChild(d);
+});
+
+mermaid.initialize({startOnLoad:true});
 </script>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
 
-    <header class="luxury-border glass-card rounded-3xl p-6 sm:p-8 mb-8">
-      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-7">
-        <div>
-          <p class="text-royalGold text-sm sm:text-base font-bold tracking-[0.28em] uppercase mb-3">Zwaaj · App-Centric Luxury Platform</p>
-          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black leading-tight text-gold-gradient">Qatari Luxury Wedding Platform: Smart Architecture</h1>
-          <p class="mt-4 max-w-4xl text-pearl/70 text-base sm:text-lg leading-8">معمارية ذكية لمنصة زواج فاخرة في قطر: التطبيق هو مركز التجربة، والرابط يقود الضيف إلى صفحة هبوط راقية ثم إلى التطبيق عبر Deep Linking.</p>
-        </div>
-
-        <div class="min-w-full lg:min-w-[360px] glass-card rounded-2xl p-5">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-pearl/75 font-bold">تقدم المراحل الخمس</span>
-            <span id="progressText" class="text-royalGold font-black text-xl">0%</span>
-          </div>
-          <div class="w-full h-4 rounded-full bg-black/60 border border-royalGold/20 overflow-hidden">
-            <div id="progressBar" class="gold-gradient h-full rounded-full transition-all duration-700" style="width:0%"></div>
-          </div>
-          <div class="grid grid-cols-5 gap-2 mt-4" id="miniProgress"></div>
-        </div>
-      </div>
-    </header>
-
-    <section class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-      <div class="glass-card rounded-2xl p-5"><p class="text-pearl/50 text-sm">منطق الدعوة</p><h2 class="text-2xl font-black text-royalGold mt-1">App First</h2></div>
-      <div class="glass-card rounded-2xl p-5"><p class="text-pearl/50 text-sm">المشاركة</p><h2 class="text-2xl font-black text-royalGold mt-1">Share Sheet</h2></div>
-      <div class="glass-card rounded-2xl p-5"><p class="text-pearl/50 text-sm">تجربة الضيف</p><h2 class="text-2xl font-black text-royalGold mt-1">Deep Link</h2></div>
-      <div class="glass-card rounded-2xl p-5"><p class="text-pearl/50 text-sm">محرك الإبداع</p><h2 class="text-2xl font-black text-royalGold mt-1">Flow Matrix</h2></div>
-    </section>
-
-    <main class="grid lg:grid-cols-12 gap-8">
-
-      <section class="lg:col-span-12 glass-card rounded-3xl p-5 sm:p-7">
-        <div class="mb-6">
-          <p class="text-royalGold font-bold tracking-[0.2em] text-sm">USER JOURNEY</p>
-          <h2 class="text-2xl sm:text-3xl font-black mt-2">رحلة المستخدم الجديدة</h2>
-          <p class="text-pearl/55 mt-2 leading-7">لا نعتمد على واتساب API كقناة أساسية. المالك يشارك الرابط عبر مشاركة الهاتف المجانية، والضيف ينتقل من صفحة هبوط فاخرة إلى التطبيق.</p>
-        </div>
-
-        <div class="grid lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr_auto_1fr_auto_1fr_auto_1fr] gap-3 items-center">
-          <div class="flow-node rounded-2xl p-4"><p class="text-royalGold font-black mb-2">01</p><h3 class="font-black text-lg">المالك ينشئ التصميم</h3><p class="text-pearl/55 text-sm leading-6 mt-2">اختيار نمط فاخر وتوليد أصول مرئية بالذكاء الاصطناعي.</p></div>
-          <div class="flow-arrow text-center"></div>
-          <div class="flow-node rounded-2xl p-4"><p class="text-royalGold font-black mb-2">02</p><h3 class="font-black text-lg">إضافة الضيوف</h3><p class="text-pearl/55 text-sm leading-6 mt-2">أسماء، أرقام، تصنيفات، طاولات، وحالات دعوة.</p></div>
-          <div class="flow-arrow text-center"></div>
-          <div class="flow-node rounded-2xl p-4"><p class="text-royalGold font-black mb-2">03</p><h3 class="font-black text-lg">زر المشاركة</h3><p class="text-pearl/55 text-sm leading-6 mt-2">فتح Native Share Sheet لإرسال SMS أو واتساب شخصي.</p></div>
-          <div class="flow-arrow text-center"></div>
-          <div class="flow-node rounded-2xl p-4"><p class="text-royalGold font-black mb-2">04</p><h3 class="font-black text-lg">الضيف يستلم الرابط</h3><p class="text-pearl/55 text-sm leading-6 mt-2">رابط ذكي يحمل eventId وguestToken وsource.</p></div>
-          <div class="flow-arrow text-center"></div>
-          <div class="flow-node rounded-2xl p-4"><p class="text-royalGold font-black mb-2">05</p><h3 class="font-black text-lg">صفحة هبوط فاخرة</h3><p class="text-pearl/55 text-sm leading-6 mt-2">عرض مختصر يدفع لتحميل التطبيق.</p></div>
-          <div class="flow-arrow text-center"></div>
-          <div class="flow-node rounded-2xl p-4"><p class="text-royalGold font-black mb-2">06</p><h3 class="font-black text-lg">تحميل التطبيق</h3><p class="text-pearl/55 text-sm leading-6 mt-2">App Store أو Play Store مع Deep Link parameters.</p></div>
-          <div class="flow-arrow text-center"></div>
-          <div class="flow-node rounded-2xl p-4"><p class="text-royalGold font-black mb-2">07</p><h3 class="font-black text-lg">تفاعل داخل التطبيق</h3><p class="text-pearl/55 text-sm leading-6 mt-2">RSVP، QR، تفاصيل الحفل، الطاولة، والموقع.</p></div>
-        </div>
-      </section>
-
-      <section class="lg:col-span-7 glass-card rounded-3xl p-5 sm:p-7">
-        <div class="mb-5">
-          <p class="text-royalGold font-bold tracking-[0.2em] text-sm">SYSTEM ARCHITECTURE</p>
-          <h2 class="text-2xl sm:text-3xl font-black mt-2">المعمارية التقنية المحدثة</h2>
-          <p class="text-pearl/55 mt-2 leading-7">ثلاثة تطبيقات Flutter، Firebase كبنية مركزية، محرك AI Matrix، ومشاركة مجانية عبر نظام الهاتف.</p>
-        </div>
-
-        <div class="mermaid">
-flowchart LR
-    A[Flutter Apps] --> A1[Owner App]
-    A --> A2[Guest App]
-    A --> A3[Organizer App]
-
-    A1 --> B[Firebase]
-    A2 --> B
-    A3 --> B
-
-    B --> B1[Auth OTP]
-    B --> B2[Firestore]
-    B --> B3[Storage]
-    B --> B4[Cloud Functions]
-
-    B4 --> C[Dynamic Deep Links]
-    C --> D[Luxury Web Landing Page]
-    D --> E[App Store / Play Store]
-    E --> A2
-
-    B4 --> F[Google Labs Flow Matrix]
-    F --> F1[Image to Video]
-    F --> F2[Style Mixing]
-    F --> F3[Luxury Asset Pipelines]
-
-    A1 --> G[Native Share Sheet]
-    G --> G1[Free SMS]
-    G --> G2[Personal WhatsApp]
-
-    A1 --> H[Tap Payments]
-        </div>
-      </section>
-
-      <section class="lg:col-span-5 grid gap-4">
-        <article class="glass-card rounded-2xl p-5 hover:shadow-gold transition"><p class="text-royalGold font-bold text-sm">FRONTEND</p><h3 class="text-2xl font-black mt-2">Flutter</h3><p class="text-pearl/60 leading-7 mt-2">تطبيق المالك، تطبيق الضيف، وتطبيق المنظم بتجربة موحدة عالية الفخامة.</p></article>
-        <article class="glass-card rounded-2xl p-5 hover:shadow-gold transition"><p class="text-royalGold font-bold text-sm">BACKEND</p><h3 class="text-2xl font-black mt-2">Firebase</h3><p class="text-pearl/60 leading-7 mt-2">Firestore، Auth، Storage، وCloud Functions لإدارة Deep Links والمنطق الخلفي.</p></article>
-        <article class="glass-card rounded-2xl p-5 hover:shadow-gold transition"><p class="text-royalGold font-bold text-sm">AI ENGINE</p><h3 class="text-2xl font-black mt-2">Google Labs Flow Matrix</h3><p class="text-pearl/60 leading-7 mt-2">منظومة توليد متقدمة للصور، الفيديو، المزج الأسلوبي، وأصول الدعوات الفاخرة.</p></article>
-        <article class="glass-card rounded-2xl p-5 hover:shadow-gold transition"><p class="text-royalGold font-bold text-sm">SHARING & PAYMENTS</p><h3 class="text-2xl font-black mt-2">Share Sheet + Tap</h3><p class="text-pearl/60 leading-7 mt-2">مشاركة مجانية عبر SMS أو واتساب الشخصي، مع دفع إلكتروني عبر Tap Payments.</p></article>
-      </section>
-
-      <section class="lg:col-span-5 glass-card rounded-3xl p-5 sm:p-7">
-        <div class="mb-5">
-          <p class="text-royalGold font-bold tracking-[0.2em] text-sm">VISUAL ROADMAP</p>
-          <h2 class="text-2xl sm:text-3xl font-black mt-2">خريطة التنفيذ التفاعلية</h2>
-          <p class="text-pearl/55 mt-2 leading-7">اضغط على أي مرحلة لإبرازها في المخطط.</p>
-        </div>
-        <canvas id="roadmapChart"></canvas>
-        <div class="mt-6 grid grid-cols-1 gap-3" id="phaseButtons"></div>
-      </section>
-
-      <section class="lg:col-span-7 glass-card rounded-3xl p-5 sm:p-7">
-        <div class="mb-5">
-          <p class="text-royalGold font-bold tracking-[0.2em] text-sm">AI FLOW MATRIX</p>
-          <h2 class="text-2xl sm:text-3xl font-black mt-2">منطق توليد الأصول الفاخرة</h2>
-          <p class="text-pearl/55 mt-2 leading-7">النظام المستهدف ليس API بسيطًا؛ بل خط إنتاج بصري يولد هوية كاملة للحفل.</p>
-        </div>
-
-        <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
-          <div class="rounded-2xl border border-royalGold/20 bg-black/30 p-5"><p class="text-royalGold font-black mb-2">01</p><h3 class="font-black text-lg">مدخلات الهوية</h3><p class="text-pearl/55 text-sm leading-6 mt-2">أسماء، ألوان، نوع الحفل، المكان، الطابع القطري، وفخامة التصميم.</p></div>
-          <div class="rounded-2xl border border-royalGold/20 bg-black/30 p-5"><p class="text-royalGold font-black mb-2">02</p><h3 class="font-black text-lg">مزج الأسلوب</h3><p class="text-pearl/55 text-sm leading-6 mt-2">دمج الخط العربي، الزخرفة، الإضاءة، القماش، والذهب.</p></div>
-          <div class="rounded-2xl border border-royalGold/20 bg-black/30 p-5"><p class="text-royalGold font-black mb-2">03</p><h3 class="font-black text-lg">صورة إلى فيديو</h3><p class="text-pearl/55 text-sm leading-6 mt-2">تحويل الدعوة إلى مشهد متحرك قصير عالي الجودة.</p></div>
-          <div class="rounded-2xl border border-royalGold/20 bg-black/30 p-5"><p class="text-royalGold font-black mb-2">04</p><h3 class="font-black text-lg">تصدير الأصول</h3><p class="text-pearl/55 text-sm leading-6 mt-2">صور، فيديو، خلفيات، QR skin، وصفحات هبوط متناسقة.</p></div>
-        </div>
-      </section>
-
-      <section class="lg:col-span-12 glass-card rounded-3xl p-5 sm:p-7">
-        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-6">
-          <div>
-            <p class="text-royalGold font-bold tracking-[0.2em] text-sm">INTEGRATED CHECKLIST</p>
-            <h2 class="text-2xl sm:text-3xl font-black mt-2">قائمة التنفيذ المرحلية</h2>
-            <p class="text-pearl/55 mt-2 leading-7">يتم حفظ التقدم محليًا في المتصفح. هذا المتتبع مخصص للمعمارية الجديدة فقط.</p>
-          </div>
-          <div class="flex flex-wrap gap-3">
-            <button id="resetTasks" class="rounded-xl border border-red-500/40 px-4 py-3 text-red-300 hover:bg-red-500/10 transition font-bold">إعادة تعيين</button>
-            <button id="markAll" class="rounded-xl border border-royalGold/50 px-4 py-3 text-royalGold hover:bg-royalGold hover:text-black transition font-bold">تحديد الكل</button>
-          </div>
-        </div>
-        <div id="taskGrid" class="grid md:grid-cols-2 xl:grid-cols-5 gap-4"></div>
-      </section>
-
-    </main>
-
-    <footer class="text-center text-pearl/35 text-sm mt-10 pb-6">Zwaaj · Qatari Luxury Wedding Platform · Smart App-Centric Architecture</footer>
-  </div>
-
-  <script>
-    mermaid.initialize({
-      startOnLoad: true,
-      theme: 'dark',
-      securityLevel: 'loose',
-      themeVariables: {
-        background: '#070707',
-        primaryColor: '#111111',
-        primaryTextColor: '#F7F1E1',
-        primaryBorderColor: '#D4AF37',
-        lineColor: '#D4AF37',
-        secondaryColor: '#1A1A1A',
-        tertiaryColor: '#070707',
-        fontFamily: 'Tajawal, sans-serif'
-      }
-    });
-
-    const phases = [
-      {
-        title: 'Foundation',
-        arabic: 'المرحلة الأولى: التأسيس',
-        duration: 2,
-        focus: 'Firebase، مصادقة OTP، وهيكل قاعدة البيانات الأساسي.',
-        tasks: [
-          'إنشاء مشروع Firebase مخصص لمنصة Zwaaj',
-          'تفعيل Firebase Auth مع Native OTP لأرقام قطر',
-          'تصميم Collections الأساسية: users, weddings, guests, invitations',
-          'إعداد Firebase Storage لأصول الدعوات والصور والفيديو',
-          'بناء Flutter shell لتطبيق المالك والضيف والمنظم',
-          'تعريف نظام الأدوار والصلاحيات: Owner, Guest, Organizer'
-        ]
-      },
-      {
-        title: 'Google Labs Flow',
-        arabic: 'المرحلة الثانية: مصفوفة الذكاء الاصطناعي',
-        duration: 3,
-        focus: 'بحث ودمج منظومة Flow Matrix لتوليد صور وفيديو وأصول فاخرة.',
-        tasks: [
-          'تحليل إمكانيات Google Labs Flow Builder أو بديل Matrix Visual Pipeline',
-          'تصميم AI pipeline من المدخلات النصية إلى أصول متعددة',
-          'بناء Prompt Schema عربي فاخر للثيمات القطرية',
-          'اختبار image-to-video لدعوات الزفاف المتحركة',
-          'تطوير style-mixing بين الخط العربي والزخارف والذهب واللؤلؤ',
-          'حفظ مخرجات AI داخل Firebase Storage وربطها بالمناسبة'
-        ]
-      },
-      {
-        title: 'Smart Sharing',
-        arabic: 'المرحلة الثالثة: المشاركة الذكية',
-        duration: 2,
-        focus: 'Deep Linking وصفحة هبوط فاخرة تقود لتحميل التطبيق.',
-        tasks: [
-          'تصميم بنية الرابط: eventId, guestToken, source, campaign',
-          'تطوير Cloud Function لإنشاء روابط دعوة آمنة',
-          'بناء Luxury Web Landing Page لكل ضيف',
-          'إضافة أزرار App Store وPlay Store مع Deep Link parameters',
-          'تنفيذ Native Share Sheet داخل Flutter للمشاركة عبر SMS أو واتساب شخصي',
-          'تسجيل مصدر الوصول والتحويل من صفحة الهبوط إلى التطبيق'
-        ]
-      },
-      {
-        title: 'Guest App Logic',
-        arabic: 'المرحلة الرابعة: منطق تطبيق الضيف',
-        duration: 3,
-        focus: 'RSVP، QR، الطاولات، وتجربة الضيف داخل التطبيق.',
-        tasks: [
-          'بناء شاشة استقبال الضيف من Deep Link داخل التطبيق',
-          'تطوير RSVP داخل التطبيق: حضور، اعتذار، عدد المرافقين',
-          'توليد Dynamic QR Code لكل ضيف',
-          'ربط الضيف برقم الطاولة ومعلومات المجلس أو القاعة',
-          'بناء شاشة تفاصيل الحفل: الموقع، الوقت، اللبس، التعليمات',
-          'تطوير Organizer check-in app لمسح QR عند المدخل'
-        ]
-      },
-      {
-        title: 'Payments & Launch',
-        arabic: 'المرحلة الخامسة: الدفع والإطلاق',
-        duration: 2,
-        focus: 'Tap API، تسعير، وتجربة Alpha في قطر.',
-        tasks: [
-          'إعداد Tap Payments API وربطه بخطط المنصة',
-          'تصميم خطط سعرية فاخرة: Basic, Majlis, Royal',
-          'ربط الدفع بتفعيل AI generation وعدد الضيوف',
-          'اختبار رحلة الدفع بنمط Sandbox ثم Live عند الجاهزية',
-          'تنفيذ Qatar Alpha Testing مع مناسبات محدودة',
-          'إعداد سياسة الخصوصية وشروط الاستخدام وصفحة الدعم'
-        ]
-      }
-    ];
-
-    const taskGrid = document.getElementById('taskGrid');
-    const progressBar = document.getElementById('progressBar');
-    const progressText = document.getElementById('progressText');
-    const resetTasks = document.getElementById('resetTasks');
-    const markAll = document.getElementById('markAll');
-    const phaseButtons = document.getElementById('phaseButtons');
-    const miniProgress = document.getElementById('miniProgress');
-    const storageKey = 'zwaaj-smart-architecture-tasks-v2';
-
-    function getSavedTasks() {
-      const saved = localStorage.getItem(storageKey);
-      if (!saved) return {};
-      try { return JSON.parse(saved); } catch { return {}; }
-    }
-
-    function saveTasks(state) {
-      localStorage.setItem(storageKey, JSON.stringify(state));
-    }
-
-    function getTaskId(phaseIndex, taskIndex) {
-      return `phase-${phaseIndex}-task-${taskIndex}`;
-    }
-
-    function getPhaseProgress(savedState, phaseIndex) {
-      const phase = phases[phaseIndex];
-      const done = phase.tasks.filter((_, taskIndex) => savedState[getTaskId(phaseIndex, taskIndex)]).length;
-      return Math.round((done / phase.tasks.length) * 100);
-    }
-
-    function renderPhaseButtons() {
-      phaseButtons.innerHTML = phases.map((phase, index) => `
-        <button class="phase-button ${index === 0 ? 'active' : ''} text-right rounded-xl border border-royalGold/30 px-4 py-3 font-bold transition" data-phase="${index}">
-          <span class="block text-sm opacity-70">${phase.title}</span>
-          <span class="block">${phase.arabic}</span>
-        </button>
-      `).join('');
-
-      document.querySelectorAll('.phase-button').forEach(button => {
-        button.addEventListener('click', () => {
-          document.querySelectorAll('.phase-button').forEach(btn => btn.classList.remove('active'));
-          button.classList.add('active');
-          const phaseIndex = Number(button.dataset.phase);
-          roadmapChart.setActiveElements([{ datasetIndex: 0, index: phaseIndex }]);
-          roadmapChart.tooltip.setActiveElements([{ datasetIndex: 0, index: phaseIndex }], { x: 0, y: 0 });
-          roadmapChart.update();
-        });
-      });
-    }
-
-    function renderTasks() {
-      const savedState = getSavedTasks();
-      taskGrid.innerHTML = '';
-
-      phases.forEach((phase, phaseIndex) => {
-        const completedInPhase = phase.tasks.filter((_, taskIndex) => savedState[getTaskId(phaseIndex, taskIndex)]).length;
-        const phaseProgress = getPhaseProgress(savedState, phaseIndex);
-        const card = document.createElement('article');
-        card.className = 'rounded-2xl border border-royalGold/20 bg-black/30 p-5';
-        card.innerHTML = `
-          <div class="mb-4">
-            <p class="text-royalGold text-sm font-bold">${phase.title}</p>
-            <h3 class="text-xl font-black mt-1">${phase.arabic}</h3>
-            <p class="text-pearl/45 text-sm leading-6 mt-2">${phase.focus}</p>
-            <div class="mt-3 h-2 rounded-full bg-black/70 overflow-hidden border border-royalGold/10">
-              <div class="gold-gradient h-full rounded-full" style="width:${phaseProgress}%"></div>
-            </div>
-            <p class="text-pearl/40 text-xs mt-2">${completedInPhase} من ${phase.tasks.length} مكتملة</p>
-          </div>
-          <div class="space-y-3">
-            ${phase.tasks.map((task, taskIndex) => {
-              const id = getTaskId(phaseIndex, taskIndex);
-              const checked = savedState[id] ? 'checked' : '';
-              const completedClass = savedState[id] ? 'completed' : '';
-              return `<label class="task-item ${completedClass} flex items-start gap-3 rounded-xl bg-white/[0.025] border border-white/[0.05] p-3 hover:border-royalGold/30 transition cursor-pointer"><input class="task-checkbox mt-1" type="checkbox" data-task-id="${id}" ${checked}><span class="text-sm leading-6 text-pearl/75">${task}</span></label>`;
-            }).join('')}
-          </div>
-        `;
-        taskGrid.appendChild(card);
-      });
-
-      document.querySelectorAll('.task-checkbox').forEach(checkbox => checkbox.addEventListener('change', handleTaskChange));
-      updateProgress();
-    }
-
-    function handleTaskChange(event) {
-      const savedState = getSavedTasks();
-      savedState[event.target.dataset.taskId] = event.target.checked;
-      saveTasks(savedState);
-      renderTasks();
-    }
-
-    function updateProgress() {
-      const savedState = getSavedTasks();
-      const totalTasks = phases.reduce((sum, phase) => sum + phase.tasks.length, 0);
-      const completedTasks = Object.values(savedState).filter(Boolean).length;
-      const progress = Math.round((completedTasks / totalTasks) * 100);
-
-      progressBar.style.width = `${progress}%`;
-      progressText.textContent = `${progress}%`;
-
-      miniProgress.innerHTML = phases.map((phase, index) => {
-        const phaseProgress = getPhaseProgress(savedState, index);
-        return `<div class="rounded-lg border border-royalGold/20 bg-black/35 p-2 text-center"><p class="text-[11px] text-pearl/45">${index + 1}</p><p class="text-xs font-black text-royalGold">${phaseProgress}%</p></div>`;
-      }).join('');
-    }
-
-    resetTasks.addEventListener('click', () => {
-      localStorage.removeItem(storageKey);
-      renderTasks();
-    });
-
-    markAll.addEventListener('click', () => {
-      const allDone = {};
-      phases.forEach((phase, phaseIndex) => phase.tasks.forEach((_, taskIndex) => {
-        allDone[getTaskId(phaseIndex, taskIndex)] = true;
-      }));
-      saveTasks(allDone);
-      renderTasks();
-    });
-
-    const chartContext = document.getElementById('roadmapChart').getContext('2d');
-    const roadmapChart = new Chart(chartContext, {
-      type: 'bar',
-      data: {
-        labels: phases.map((phase, index) => `${index + 1}. ${phase.title}`),
-        datasets: [{
-          label: 'مدة التنفيذ بالأسابيع',
-          data: phases.map(phase => phase.duration),
-          borderWidth: 1,
-          borderColor: '#D4AF37',
-          backgroundColor: 'rgba(212, 175, 55, 0.35)',
-          hoverBackgroundColor: 'rgba(212, 175, 55, 0.66)',
-          borderRadius: 12
-        }]
-      },
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { labels: { color: '#F7F1E1', font: { family: 'Tajawal', size: 13 } } },
-          tooltip: {
-            rtl: true,
-            bodyFont: { family: 'Tajawal' },
-            titleFont: { family: 'Tajawal' },
-            callbacks: { label: context => ` ${context.raw} أسبوع` }
-          }
-        },
-        scales: {
-          x: {
-            ticks: { color: 'rgba(247,241,225,0.65)', font: { family: 'Tajawal' } },
-            grid: { color: 'rgba(212,175,55,0.10)' }
-          },
-          y: {
-            ticks: { color: 'rgba(247,241,225,0.85)', font: { family: 'Tajawal', size: 12 } },
-            grid: { color: 'rgba(255,255,255,0.04)' }
-          }
-        }
-      }
-    });
-
-    renderPhaseButtons();
-    renderTasks();
-  </script>
 </body>
 </html>
