@@ -149,6 +149,40 @@
 </head>
 
 <body class="font-tajawal antialiased">
+  <div id="passwordGate" style="position:fixed;inset:0;background:#070707;z-index:999999;display:flex;align-items:center;justify-content:center;font-family:Tajawal,sans-serif;">
+  <div style="width:min(420px,90vw);background:#111;border:1px solid #D4AF37;border-radius:24px;padding:32px;text-align:center;color:#F7F1E1;box-shadow:0 20px 80px rgba(0,0,0,.6);">
+    <div style="color:#D4AF37;font-weight:900;letter-spacing:3px;margin-bottom:12px;">ZWAAJ PRIVATE</div>
+    <h1 style="font-size:32px;margin:0 0 12px;color:#D4AF37;">دخول خاص</h1>
+    <p style="opacity:.7;margin-bottom:22px;">أدخل كلمة المرور لعرض الداشبورد</p>
+    <input id="passwordInput" type="password" placeholder="كلمة المرور" style="width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(212,175,55,.4);background:#050505;color:#F7F1E1;text-align:center;font-size:18px;outline:none;">
+    <button onclick="checkPassword()" style="width:100%;margin-top:14px;padding:14px;border:0;border-radius:14px;background:#D4AF37;color:#070707;font-weight:900;font-size:17px;">دخول</button>
+    <div id="passwordError" style="display:none;color:#ff8a8a;margin-top:14px;">كلمة المرور غير صحيحة</div>
+  </div>
+</div>
+
+<script>
+  function checkPassword() {
+    const password = document.getElementById('passwordInput').value;
+    if (password === 'zwaaj2026') {
+      sessionStorage.setItem('zwaajUnlocked', 'true');
+      document.getElementById('passwordGate').style.display = 'none';
+    } else {
+      document.getElementById('passwordError').style.display = 'block';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    if (sessionStorage.getItem('zwaajUnlocked') === 'true') {
+      document.getElementById('passwordGate').style.display = 'none';
+    }
+
+    document.getElementById('passwordInput').addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') {
+        checkPassword();
+      }
+    });
+  });
+</script>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
 
     <header class="luxury-border glass-card rounded-3xl p-6 sm:p-8 mb-8">
