@@ -1,275 +1,302 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة الزفاف القطرية | لوحة القيادة المعمارية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Tajawal', 'sans-serif'] },
-                    colors: {
-                        navyBase: '#0F172A',
-                        navyLight: '#1E293B',
-                        navyDark: '#020617',
-                        gold: '#D4AF37',
-                    }
-                }
-            }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>منصة زواج المؤسسية | لوحة معمارية SaaS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navyBase: '#0F172A',
+            navyLight: '#1E293B',
+            navyDark: '#020617',
+            gold: '#D4AF37',
+            pearl: '#F8F9FA'
+          },
+          fontFamily: {
+            tajawal: ['Tajawal', 'sans-serif']
+          }
         }
-    </script>
-    <style>
-        body { 
-            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #020617 100%); 
-            color: #F8F9FA; 
-            min-height: 100vh; 
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            border-radius: 1.5rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-        }
-        input[type="checkbox"] { accent-color: #D4AF37; width: 1.3rem; height: 1.3rem; cursor: pointer; }
-        #reportModal { display: none; }
-        #reportModal.active { display: flex; }
-    </style>
+      }
+    };
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Tajawal', sans-serif; }
+    .task-done .task-title { text-decoration: line-through; opacity: .55; }
+    .mermaid { direction: ltr; }
+  </style>
 </head>
-<body class="p-0 md:p-8 relative overflow-x-hidden">
-
-    <div id="passwordGate" class="fixed inset-0 bg-[#020617] z-[999999] flex items-center justify-center transition-opacity duration-500">
-        <div class="w-[min(420px,90vw)] glass-card p-8 text-center">
-            <div class="text-gold font-black tracking-widest mb-3">ZWAAJ PRIVATE</div>
-            <h1 class="text-3xl font-bold mb-3 text-gold">دخول خاص</h1>
-            <input id="passwordInput" type="password" placeholder="كلمة المرور" dir="ltr" class="w-full p-4 rounded-xl border border-gold/30 bg-black/40 text-white text-center text-lg outline-none focus:border-gold mb-4">
-            <button onclick="checkPassword()" class="w-full p-4 rounded-xl bg-gold text-navyDark font-black text-lg">دخول</button>
-            <div id="passwordError" class="hidden text-red-400 mt-4 text-sm font-bold">كلمة المرور غير صحيحة</div>
-        </div>
+<body class="min-h-screen bg-gradient-to-br from-navyDark via-navyBase to-navyLight text-pearl font-tajawal">
+  <div id="passwordGate" class="fixed inset-0 z-50 bg-navyDark flex items-center justify-center px-4">
+    <div class="w-full max-w-md bg-white/5 backdrop-blur-md border border-gold/20 rounded-3xl p-8 shadow-2xl">
+      <div class="text-center">
+        <p class="text-gold font-black tracking-[0.35em] text-sm mb-4">ZWAAJ PRIVATE</p>
+        <h1 class="text-3xl font-black text-pearl mb-3">دخول خاص للوحة المشروع</h1>
+        <p class="text-pearl/60 leading-7 mb-6">هذه اللوحة مخصصة لتتبع معمارية منصة زواج المؤسسية فقط.</p>
+      </div>
+      <label class="block text-pearl/80 font-bold mb-2" for="passwordInput">كلمة المرور</label>
+      <input id="passwordInput" type="password" dir="ltr" class="w-full rounded-2xl bg-navyDark/80 border border-gold/30 px-5 py-4 text-center text-pearl outline-none focus:border-gold" placeholder="••••••••" />
+      <button id="unlockButton" class="w-full mt-4 rounded-2xl bg-gold text-navyDark py-4 font-black hover:opacity-90 transition">فتح اللوحة</button>
+      <p id="passwordError" class="hidden mt-4 text-red-300 text-center font-bold">كلمة المرور غير صحيحة</p>
     </div>
+  </div>
 
-    <div class="max-w-7xl mx-auto p-6 md:p-0 pt-8">
-        
-        <header class="mb-10 text-center">
-            <h1 class="text-3xl md:text-5xl font-extrabold text-gold mb-4 drop-shadow-lg"><i class="fa-solid fa-gem mr-3"></i> المنصة المعمارية (B2B2C)</h1>
-            <p class="text-lg text-gray-400 mb-8">الهيكلة الدقيقة - Matrix Visual AI & Adobe</p>
-            
-            <div class="max-w-3xl mx-auto glass-card p-5">
-                <div class="flex justify-between items-center mb-3">
-                    <span class="text-gold font-bold text-lg">مستوى الإنجاز العام</span>
-                    <span id="progress-text" class="text-white font-bold text-2xl">0%</span>
-                </div>
-                <div class="w-full bg-navyDark rounded-full h-5 relative overflow-hidden border border-white/5">
-                    <div id="progress-bar" class="bg-gradient-to-r from-yellow-700 to-gold h-5 rounded-full transition-all duration-700" style="width: 0%;"></div>
-                </div>
-                <button onclick="generateReport()" class="mt-5 w-full md:w-auto px-8 py-3 bg-white/5 hover:bg-gold hover:text-navyDark text-gold border border-gold/30 rounded-xl font-bold transition-all">إصدار التقرير الشامل</button>
-            </div>
-        </header>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
-            <div class="glass-card p-6 lg:col-span-2">
-                <h2 class="text-2xl font-bold text-gold mb-6 border-b border-gold/20 pb-3">تفاصيل مراحل العمل والتواريخ</h2>
-                
-                <div class="space-y-8" id="task-list">
-                    
-                    <div class="task-group">
-                        <h3 class="text-xl text-white font-bold mb-4 bg-navyLight/50 p-2 rounded-lg">1. تأسيس الخوادم والبيانات (Multi-Tenant)</h3>
-                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer">
-                            <div class="flex items-center space-x-3 space-x-reverse">
-                                <input type="checkbox" class="task-checkbox" data-id="t1">
-                                <span class="text-gray-200 font-medium text-lg">بناء قاعدة بيانات Firebase (فصل بيانات الفنادق، المناسبات، الضيوف).</span>
-                            </div>
-                            <span class="date-stamp text-sm text-gold/70 mt-2 mr-8 empty:hidden"></span>
-                        </label>
-                    </div>
-
-                    <div class="task-group">
-                        <h3 class="text-xl text-white font-bold mb-4 bg-navyLight/50 p-2 rounded-lg">2. رحلة العميل (B2B Dashboard)</h3>
-                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer">
-                            <div class="flex items-center space-x-3 space-x-reverse">
-                                <input type="checkbox" class="task-checkbox" data-id="t2">
-                                <span class="text-gray-200 font-medium text-lg">برمجة لوحة الفندق: إنشاء مناسبة وإدخال بيانات العرسان وقائمة الضيوف.</span>
-                            </div>
-                            <span class="date-stamp text-sm text-gold/70 mt-2 mr-8 empty:hidden"></span>
-                        </label>
-                    </div>
-
-                    <div class="task-group">
-                        <h3 class="text-xl text-white font-bold mb-4 bg-navyLight/50 p-2 rounded-lg">3. محرك التصميم (Matrix Visual AI & Adobe)</h3>
-                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer">
-                            <div class="flex items-center space-x-3 space-x-reverse">
-                                <input type="checkbox" class="task-checkbox" data-id="t3">
-                                <span class="text-gray-200 font-medium text-lg">ربط Matrix Visual AI لتوليد الخلفيات والرسوميات المعقدة.</span>
-                            </div>
-                            <span class="date-stamp text-sm text-gold/70 mt-2 mr-8 empty:hidden"></span>
-                        </label>
-                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer">
-                            <div class="flex items-center space-x-3 space-x-reverse">
-                                <input type="checkbox" class="task-checkbox" data-id="t4">
-                                <span class="text-gray-200 font-medium text-lg">تفكيك الطبقات (Layers) عبر بيئة Adobe لدمج الخطوط العربية بكسل بكسل.</span>
-                            </div>
-                            <span class="date-stamp text-sm text-gold/70 mt-2 mr-8 empty:hidden"></span>
-                        </label>
-                    </div>
-
-                    <div class="task-group">
-                        <h3 class="text-xl text-white font-bold mb-4 bg-navyLight/50 p-2 rounded-lg">4. رحلة الضيف والروابط العميقة (App-Centric)</h3>
-                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer">
-                            <div class="flex items-center space-x-3 space-x-reverse">
-                                <input type="checkbox" class="task-checkbox" data-id="t5">
-                                <span class="text-gray-200 font-medium text-lg">برمجة الرابط العميق (Deep Link) وتوجيه الضيف لصفحة الويب ثم التطبيق.</span>
-                            </div>
-                            <span class="date-stamp text-sm text-gold/70 mt-2 mr-8 empty:hidden"></span>
-                        </label>
-                        <label class="flex flex-col mb-3 p-3 hover:bg-white/5 rounded-xl cursor-pointer">
-                            <div class="flex items-center space-x-3 space-x-reverse">
-                                <input type="checkbox" class="task-checkbox" data-id="t6">
-                                <span class="text-gray-200 font-medium text-lg">تأكيد الحضور من داخل التطبيق (RSVP) وتوليد الـ QR الديناميكي.</span>
-                            </div>
-                            <span class="date-stamp text-sm text-gold/70 mt-2 mr-8 empty:hidden"></span>
-                        </label>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="space-y-8">
-                <div class="glass-card p-6">
-                    <h2 class="text-xl font-bold text-gold mb-4 border-b border-gold/20 pb-2">البنية التحتية</h2>
-                    <ul class="space-y-3 text-gray-300">
-                        <li><i class="fa-solid fa-mobile text-blue-400 mr-2 ml-2"></i> الواجهات: <b>Flutter</b></li>
-                        <li><i class="fa-solid fa-server text-yellow-500 mr-2 ml-2"></i> الخوادم: <b>Firebase</b></li>
-                        <li><i class="fa-solid fa-brain text-purple-400 mr-2 ml-2"></i> الذكاء الاصطناعي: <b>Matrix Visual AI</b></li>
-                        <li><i class="fa-solid fa-layer-group text-red-400 mr-2 ml-2"></i> معالجة التصميم: <b>Adobe Engine</b></li>
-                    </ul>
-                </div>
-
-                <div class="glass-card p-6">
-                    <h2 class="text-xl font-bold text-gold mb-4 border-b border-gold/20 pb-2">مسار النظام (User Flow)</h2>
-                    <ul class="space-y-4 text-sm text-gray-300">
-                        <li><b>1.</b> الفندق يصمم ويضيف الضيوف.</li>
-                        <li><b>2.</b> مشاركة الرابط عبر (SMS/WA).</li>
-                        <li><b>3.</b> فتح صفحة هبوط الويب الفاخرة.</li>
-                        <li><b>4.</b> التحويل لتحميل التطبيق (Deep Link).</li>
-                        <li><b>5.</b> التفاعل، تأكيد الحضور، والباركود بالداخل.</li>
-                    </ul>
-                </div>
-            </div>
-
+  <div id="mainContent" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <header class="bg-white/5 backdrop-blur-md border border-gold/20 rounded-3xl p-6 sm:p-8 mb-8">
+      <div class="grid lg:grid-cols-[1fr_380px] gap-8 items-center">
+        <div>
+          <p class="text-gold font-black tracking-[0.25em] text-sm mb-4">B2B2C ENTERPRISE SAAS · QATAR</p>
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black leading-tight">لوحة معمارية منصة الزفاف الفاخرة للفنادق</h1>
+          <p class="text-pearl/70 text-lg leading-8 mt-5">مساحة تنفيذ مؤسسية منظمة لبناء منصة B2B2C تستهدف الفنادق الراقية في قطر، وتغطي قاعدة البيانات متعددة المستأجرين، رحلة الفندق والضيف، محرك الذكاء الاصطناعي، الروابط العميقة، تطبيق الضيف، تطبيق المنظم، والدفع المؤسسي.</p>
         </div>
-    </div>
-
-    <div id="reportModal" class="fixed inset-0 bg-navyDark/90 z-[99999] items-center justify-center backdrop-blur-sm">
-        <div class="w-[min(600px,95vw)] glass-card p-8 relative max-h-[90vh] overflow-y-auto">
-            <button onclick="closeReport()" class="absolute top-4 left-4 text-gray-400 hover:text-white text-2xl"><i class="fa-solid fa-xmark"></i></button>
-            <h2 class="text-3xl font-bold text-gold mb-2">التقرير الشامل للمشروع</h2>
-            <p class="text-gray-400 mb-6" id="report-meta"></p>
-            <div class="bg-navyDark/50 p-4 rounded-xl border border-white/5 mb-6">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-white">نسبة الإنجاز الفعلية:</span>
-                    <span id="report-percentage" class="text-gold font-bold text-xl">0%</span>
-                </div>
-            </div>
-            <ul id="report-completed-list" class="space-y-3 text-gray-300 text-sm"></ul>
+        <div class="bg-white/5 backdrop-blur-md border border-gold/20 rounded-3xl p-5">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-bold text-pearl/80">نسبة الإنجاز العامة</span>
+            <span id="progressText" class="text-gold text-2xl font-black">0%</span>
+          </div>
+          <div class="h-4 bg-navyDark rounded-full overflow-hidden border border-gold/20">
+            <div id="progressBar" class="h-full bg-gold rounded-full transition-all duration-700" style="width:0%"></div>
+          </div>
+          <div id="phaseProgressGrid" class="grid grid-cols-6 gap-2 mt-4"></div>
         </div>
-    </div>
+      </div>
+    </header>
 
-    <script>
-        // البوابة
-        function checkPassword() {
-            const pwd = document.getElementById('passwordInput').value;
-            if (pwd === 'zwaaj2026') {
-                sessionStorage.setItem('zwaajUnlocked', 'true');
-                document.getElementById('passwordGate').style.display = 'none';
-            } else {
-                document.getElementById('passwordError').style.display = 'block';
-            }
-        }
-        document.addEventListener('DOMContentLoaded', () => {
-            if (sessionStorage.getItem('zwaajUnlocked') === 'true') {
-                document.getElementById('passwordGate').style.display = 'none';
-            }
-            document.getElementById('passwordInput').addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
-            loadTasks();
+    <main class="space-y-8">
+      <section class="bg-white/5 backdrop-blur-md border border-gold/20 rounded-3xl p-6">
+        <p class="text-gold font-black tracking-[0.18em] text-sm">القسم الأول</p>
+        <h2 class="text-3xl font-black mt-2 mb-6">مخطط تدفق B2B2C</h2>
+        <div class="grid md:grid-cols-2 xl:grid-cols-7 gap-4">
+          <div class="bg-white/5 border border-gold/20 rounded-2xl p-4"><p class="text-gold font-black">01</p><h3 class="font-black text-lg mt-2">الفندق ينشئ الحدث</h3><p class="text-pearl/65 leading-7 mt-2">الفندق يستخدم لوحة الويب لإنشاء مناسبة زفاف جديدة وربطها بحسابه كشريك مؤسسي.</p></div>
+          <div class="bg-white/5 border border-gold/20 rounded-2xl p-4"><p class="text-gold font-black">02</p><h3 class="font-black text-lg mt-2">إضافة الضيوف</h3><p class="text-pearl/65 leading-7 mt-2">الفندق أو المضيف يرفع قائمة الضيوف مع أرقام الجوال والبيانات الخاصة بكل ضيف.</p></div>
+          <div class="bg-white/5 border border-gold/20 rounded-2xl p-4"><p class="text-gold font-black">03</p><h3 class="font-black text-lg mt-2">رسالة SMS مجانية</h3><p class="text-pearl/65 leading-7 mt-2">كل ضيف يستلم رابطًا عميقًا مخصصًا عبر SMS أو مشاركة شخصية.</p></div>
+          <div class="bg-white/5 border border-gold/20 rounded-2xl p-4"><p class="text-gold font-black">04</p><h3 class="font-black text-lg mt-2">فتح صفحة هبوط</h3><p class="text-pearl/65 leading-7 mt-2">الرابط يفتح صفحة ويب فاخرة تعرض مقدمة خاصة وتوجه الضيف لتحميل التطبيق.</p></div>
+          <div class="bg-white/5 border border-gold/20 rounded-2xl p-4"><p class="text-gold font-black">05</p><h3 class="font-black text-lg mt-2">تحميل التطبيق</h3><p class="text-pearl/65 leading-7 mt-2">الضيف ينتقل إلى App Store أو Play Store مع حفظ بيانات الرابط العميق.</p></div>
+          <div class="bg-white/5 border border-gold/20 rounded-2xl p-4"><p class="text-gold font-black">06</p><h3 class="font-black text-lg mt-2">تأكيد الحضور</h3><p class="text-pearl/65 leading-7 mt-2">الضيف يشاهد الدعوة الخاصة داخل التطبيق ويؤكد الحضور وعدد المرافقين.</p></div>
+          <div class="bg-white/5 border border-gold/20 rounded-2xl p-4"><p class="text-gold font-black">07</p><h3 class="font-black text-lg mt-2">مسح QR ديناميكي</h3><p class="text-pearl/65 leading-7 mt-2">طاقم الفندق يستخدم تطبيق المنظم لمسح QR متغير ومشفّر عند المدخل.</p></div>
+        </div>
+      </section>
+
+      <section class="bg-white/5 backdrop-blur-md border border-gold/20 rounded-3xl p-6">
+        <p class="text-gold font-black tracking-[0.18em] text-sm">القسم الثاني</p>
+        <h2 class="text-3xl font-black mt-2 mb-6">مخطط Mermaid للتدفق الكامل</h2>
+        <div class="mermaid bg-navyDark/50 border border-gold/20 rounded-2xl p-4 overflow-x-auto">
+flowchart LR
+  A[الفندق ينشئ الحدث] --> B[إضافة الضيوف]
+  B --> C[Matrix Visual AI يولد الخلفية والفيديو]
+  C --> D[Adobe Engine يفصل الطبقات]
+  D --> E[إدراج الخط العربي بكسل ببكسل]
+  E --> F[توليد رابط عميق لكل ضيف]
+  F --> G[مشاركة عبر WhatsApp شخصي أو SMS مجاني]
+  G --> H[صفحة هبوط ويب فاخرة]
+  H --> I[تحميل تطبيق الضيف]
+  I --> J[فتح الدعوة داخل التطبيق]
+  J --> K[RSVP داخل التطبيق]
+  K --> L[QR ديناميكي يتغير كل 10 ثوان]
+  L --> M[تطبيق المنظم يفك التشفير عند الباب]
+  M --> N[Firestore يحدث الحالة إلى Checked-In]
+  N --> O[Tap Payments يحسب فوترة الفندق]
+        </div>
+      </section>
+
+      <section class="bg-white/5 backdrop-blur-md border border-gold/20 rounded-3xl p-6">
+        <p class="text-gold font-black tracking-[0.18em] text-sm">القسم الثالث</p>
+        <h2 class="text-3xl font-black mt-2 mb-6">المهام التفصيلية حسب المراحل</h2>
+        <div id="taskContainer" class="grid lg:grid-cols-2 gap-5"></div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const PASSWORD = 'zwaaj2026';
+    const STORAGE_KEY = 'zwaaj_enterprise_tasks_with_timestamps_v1';
+
+    const phases = [
+      {
+        title: 'المرحلة الأولى: قاعدة البيانات والأمان متعدد المستأجرين Firebase',
+        tasks: [
+          { title: 'إعداد Firestore مع تحكم صارم قائم على الأدوار RBAC', desc: 'إنشاء هيكل صلاحيات واضح يفرق بين مدير المنصة، الفندق الشريك، موظف الفندق، المضيف، والضيف، بحيث لا يتم الاعتماد على الواجهة فقط بل على قواعد Firestore نفسها.' },
+          { title: 'إنشاء مجموعات معزولة: Partners Hotels وEvents وGuests وStaff', desc: 'تقسيم البيانات إلى مجموعات واضحة تعكس نموذج B2B2C، حيث تمثل Partners الفنادق، وتمثل Events المناسبات التابعة لكل فندق، وتمثل Guests ضيوف كل مناسبة، وتمثل Staff موظفي المسح والدخول.' },
+          { title: 'كتابة Security Rules تمنع الفنادق من رؤية بيانات بعضها', desc: 'صياغة قواعد Firestore بحيث لا يستطيع أي فندق قراءة أو تعديل إلا السجلات التي تحمل partnerId الخاص به، مع منع الوصول العرضي أو المتعمد إلى بيانات شركاء آخرين.' }
+        ]
+      },
+      {
+        title: 'المرحلة الثانية: لوحة B2B ورحلة العميل Web',
+        tasks: [
+          { title: 'تسجيل دخول الفندق ولوحة إنشاء الحدث', desc: 'بناء واجهة دخول مؤسسية للفنادق الراقية ولوحة تحكم تسمح بإنشاء حدث جديد وتحديد القاعة والتاريخ والحالة التشغيلية.' },
+          { title: 'شاشة استشارة العميل لاختيار القوالب الفاخرة', desc: 'توفير شاشة منظمة للاستشارة تعرض أنماطًا فاخرة للدعوة، مثل الطابع القطري، الذهبي، اللؤلؤي، الملكي، والمينيمال الفاخر.' },
+          { title: 'إدخال أسماء العريس والعروس وتاريخ المناسبة وقائمة الضيوف', desc: 'إنشاء نموذج بيانات دقيق يسمح بإدخال أسماء العريس والعروس، التاريخ، الوقت، القاعة، ورفع ملف قائمة الضيوف مع أرقام الجوال وربط كل ضيف بسجل مستقل.' }
+        ]
+      },
+      {
+        title: 'المرحلة الثالثة: خط إنتاج الذكاء الاصطناعي Matrix Visual AI + Adobe',
+        tasks: [
+          { title: 'دمج API مع Matrix Visual AI لتوليد الخلفية أو الفيديو الفاخر', desc: 'ربط النظام بمحرك Matrix Visual AI لإنشاء خلفيات وصور وفيديوهات فاخرة بناءً على هوية الحدث، ألوان الفندق، ونوع المناسبة.' },
+          { title: 'دمج API مع Adobe Engine لفصل الطبقات', desc: 'استخدام Adobe Engine لفصل التصميم إلى طبقات قابلة للمعالجة مثل الخلفية، الزخارف، الإضاءة، المساحات النصية، وحركات الفيديو.' },
+          { title: 'إدراج الخط العربي بكسل ببكسل فوق طبقات Adobe لمنع تشويه النص', desc: 'عدم السماح للذكاء الاصطناعي بتوليد أسماء عربية مباشرة داخل الصورة، بل يتم إدراج الأسماء والخط العربي برمجيًا فوق الطبقات بدقة Pixel-Level لضمان وضوح النص ومنع التشويه.' }
+        ]
+      },
+      {
+        title: 'المرحلة الرابعة: المشاركة الذكية والروابط العميقة WhatsApp وSMS',
+        tasks: [
+          { title: 'توليد Deep Link ديناميكي لكل ضيف على حدة', desc: 'إنشاء رابط خاص لكل ضيف يحتوي على معرف الحدث ومعرف الضيف وتوقيع أمني، بحيث يفتح التجربة الصحيحة بدون كشف بيانات ضيوف آخرين.' },
+          { title: 'بناء تكامل Native Share Sheet للمشاركة عبر WhatsApp شخصي أو SMS مجاني', desc: 'تمكين الفندق أو المضيف من الضغط على زر مشاركة واحد، ثم اختيار WhatsApp الشخصي أو SMS المجاني من نظام الهاتف دون الاعتماد الكامل على WhatsApp API.' },
+          { title: 'بناء صفحة هبوط ويب فاخرة تدفع الضيف لتحميل التطبيق', desc: 'عندما يفتح الضيف رابط WhatsApp أو SMS تظهر له صفحة ويب راقية تعرض هوية الدعوة وتدعوه لتحميل التطبيق لمشاهدة الدعوة الخاصة والتفاعل معها.' }
+        ]
+      },
+      {
+        title: 'المرحلة الخامسة: تطبيق الضيف والأمان Flutter',
+        tasks: [
+          { title: 'التطبيق يلتقط Deep Link فور الفتح', desc: 'عند تثبيت التطبيق أو فتحه، يقرأ الرابط العميق مباشرة ويطابق guestToken مع Firestore ليعرض تجربة الضيف الصحيحة.' },
+          { title: 'الضيف يشاهد الدعوة المولدة بالذكاء الاصطناعي داخل التطبيق', desc: 'عرض الدعوة النهائية داخل التطبيق بجودة عالية، مع الفيديو أو الخلفية المصممة وطبقات الخط العربي التي تم تركيبها بدقة.' },
+          { title: 'نظام RSVP داخل التطبيق لتأكيد الحضور والمرافقين', desc: 'تمكين الضيف من تأكيد الحضور أو الاعتذار وتحديد عدد المرافقين إن كان مسموحًا، مع تحديث فوري في Firestore للفندق والمنظم.' },
+          { title: 'QR ديناميكي مشفر يتغير كل 10 ثوان لمنع لقطات الشاشة', desc: 'إنشاء رمز QR مؤقت يعتمد على الوقت والتشفير ويتجدد كل 10 ثوان، بحيث تصبح لقطة الشاشة القديمة غير صالحة للدخول.' }
+        ]
+      },
+      {
+        title: 'المرحلة السادسة: تطبيق المنظم والمدفوعات',
+        tasks: [
+          { title: 'تطبيق Flutter Scanner لأمن الفندق لفك QR الديناميكي عند الباب', desc: 'بناء تطبيق خاص للموظفين يسمح بمسح QR، فك التوقيع المشفر، التحقق من صلاحية الوقت، والتحقق من أن الضيف تابع للحدث الصحيح.' },
+          { title: 'مزامنة Firestore لحظيًا لتحديث حالة الضيف إلى Checked-In', desc: 'عند نجاح المسح يتم تحديث حالة الضيف فورًا إلى Checked-In مع تسجيل وقت الدخول وموظف المسح ونقطة الدخول.' },
+          { title: 'دمج Tap Payments لفوترة B2B آلية حسب استخدام الفنادق', desc: 'بناء نظام فوترة مؤسسي يعتمد على عدد الأحداث، عدد الضيوف، استخدام الذكاء الاصطناعي، وحزم الخدمة، مع ربط الدفع عبر Tap Payments.' }
+        ]
+      }
+    ];
+
+    const passwordGate = document.getElementById('passwordGate');
+    const mainContent = document.getElementById('mainContent');
+    const passwordInput = document.getElementById('passwordInput');
+    const passwordError = document.getElementById('passwordError');
+    const unlockButton = document.getElementById('unlockButton');
+
+    function unlockDashboard() {
+      if (passwordInput.value === PASSWORD) {
+        sessionStorage.setItem('zwaaj_unlocked', 'true');
+        passwordGate.classList.add('hidden');
+        mainContent.classList.remove('hidden');
+      } else {
+        passwordError.classList.remove('hidden');
+      }
+    }
+
+    unlockButton.addEventListener('click', unlockDashboard);
+    passwordInput.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') unlockDashboard();
+    });
+
+    function getState() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; }
+    }
+
+    function setState(state) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function taskId(phaseIndex, taskIndex) {
+      return `phase_${phaseIndex}_task_${taskIndex}`;
+    }
+
+    function formatTimestamp() {
+      const now = new Date();
+      return now.toLocaleDateString('ar-QA') + ' - ' + now.toLocaleTimeString('ar-QA');
+    }
+
+    function renderTasks() {
+      const state = getState();
+      const container = document.getElementById('taskContainer');
+      container.innerHTML = '';
+
+      phases.forEach((phase, phaseIndex) => {
+        const completed = phase.tasks.filter((_, taskIndex) => state[taskId(phaseIndex, taskIndex)]?.checked).length;
+        const percent = Math.round((completed / phase.tasks.length) * 100);
+        const card = document.createElement('section');
+        card.className = 'bg-white/5 backdrop-blur-md border border-gold/20 rounded-3xl p-5';
+        card.innerHTML = `
+          <div class="mb-5">
+            <div class="flex items-start justify-between gap-4">
+              <h3 class="text-xl font-black text-pearl leading-8">${phase.title}</h3>
+              <span class="text-gold font-black whitespace-nowrap">${completed}/${phase.tasks.length}</span>
+            </div>
+            <div class="h-2 bg-navyDark rounded-full overflow-hidden mt-4 border border-gold/10">
+              <div class="h-full bg-gold rounded-full" style="width:${percent}%"></div>
+            </div>
+          </div>
+          <div class="space-y-4">
+            ${phase.tasks.map((task, taskIndex) => {
+              const id = taskId(phaseIndex, taskIndex);
+              const checked = state[id]?.checked ? 'checked' : '';
+              const doneClass = state[id]?.checked ? 'task-done' : '';
+              const timestamp = state[id]?.timestamp || '';
+              return `
+                <label class="${doneClass} block bg-navyDark/45 border border-white/10 rounded-2xl p-4 cursor-pointer hover:border-gold/40 transition">
+                  <div class="flex items-start gap-3">
+                    <input class="task-checkbox mt-1 accent-gold w-5 h-5" type="checkbox" data-id="${id}" ${checked} />
+                    <div>
+                      <div class="task-title font-black text-pearl leading-7">${task.title}</div>
+                      <p class="text-pearl/60 leading-7 mt-2">${task.desc}</p>
+                      <p class="text-gold/80 text-sm mt-2 ${timestamp ? '' : 'hidden'}">وقت الإنجاز: ${timestamp}</p>
+                    </div>
+                  </div>
+                </label>
+              `;
+            }).join('')}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      document.querySelectorAll('.task-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', function(event) {
+          const state = getState();
+          const id = event.target.dataset.id;
+          if (event.target.checked) {
+            state[id] = { checked: true, timestamp: formatTimestamp() };
+          } else {
+            state[id] = { checked: false, timestamp: null };
+          }
+          setState(state);
+          renderTasks();
+          updateProgress();
         });
+      });
+    }
 
-        // التواريخ والمهام
-        const checkboxes = document.querySelectorAll('.task-checkbox');
-        const progressBar = document.getElementById('progress-bar');
-        const progressText = document.getElementById('progress-text');
+    function updateProgress() {
+      const state = getState();
+      const total = phases.reduce((sum, phase) => sum + phase.tasks.length, 0);
+      let completed = 0;
+      phases.forEach((phase, phaseIndex) => {
+        phase.tasks.forEach((_, taskIndex) => {
+          if (state[taskId(phaseIndex, taskIndex)]?.checked) completed++;
+        });
+      });
+      const percent = Math.round((completed / total) * 100);
+      document.getElementById('progressBar').style.width = `${percent}%`;
+      document.getElementById('progressText').textContent = `${percent}%`;
+      document.getElementById('phaseProgressGrid').innerHTML = phases.map((phase, phaseIndex) => {
+        const phaseCompleted = phase.tasks.filter((_, taskIndex) => state[taskId(phaseIndex, taskIndex)]?.checked).length;
+        const phasePercent = Math.round((phaseCompleted / phase.tasks.length) * 100);
+        return `<div class="bg-navyDark/70 border border-gold/10 rounded-xl p-2 text-center"><p class="text-pearl/40 text-xs">${phaseIndex + 1}</p><p class="text-gold font-black text-xs">${phasePercent}%</p></div>`;
+      }).join('');
+    }
 
-        function loadTasks() {
-            const savedData = JSON.parse(localStorage.getItem('zwaajData')) || {};
-            checkboxes.forEach(box => {
-                const id = box.getAttribute('data-id');
-                const dateSpan = box.closest('label').querySelector('.date-stamp');
-                if (savedData[id]) {
-                    box.checked = savedData[id].checked;
-                    dateSpan.innerText = savedData[id].date ? `(تم الإنجاز في: ${savedData[id].date})` : '';
-                }
-            });
-            calculateProgress();
-        }
-
-        function saveTask(event) {
-            const box = event.target;
-            const id = box.getAttribute('data-id');
-            const dateSpan = box.closest('label').querySelector('.date-stamp');
-            let savedData = JSON.parse(localStorage.getItem('zwaajData')) || {};
-
-            if (box.checked) {
-                const now = new Date();
-                const dateString = now.toLocaleDateString('ar-QA') + ' - ' + now.toLocaleTimeString('ar-QA');
-                savedData[id] = { checked: true, date: dateString, title: box.nextElementSibling.innerText };
-                dateSpan.innerText = `(تم الإنجاز في: ${dateString})`;
-            } else {
-                savedData[id] = { checked: false, date: null, title: box.nextElementSibling.innerText };
-                dateSpan.innerText = '';
-            }
-            localStorage.setItem('zwaajData', JSON.stringify(savedData));
-            calculateProgress();
-        }
-
-        function calculateProgress() {
-            const total = checkboxes.length;
-            const completed = document.querySelectorAll('.task-checkbox:checked').length;
-            const pct = Math.round((completed / total) * 100);
-            progressBar.style.width = pct + '%';
-            progressText.innerText = pct + '%';
-            progressText.style.color = pct === 100 ? '#10B981' : '#F8F9FA';
-        }
-
-        checkboxes.forEach(box => box.addEventListener('change', saveTask));
-
-        // التقرير
-        function generateReport() {
-            const savedData = JSON.parse(localStorage.getItem('zwaajData')) || {};
-            const listContainer = document.getElementById('report-completed-list');
-            listContainer.innerHTML = '';
-            let count = 0;
-            const now = new Date();
-            document.getElementById('report-meta').innerText = `تاريخ إصدار التقرير: ${now.toLocaleDateString('ar-QA')} | ${now.toLocaleTimeString('ar-QA')}`;
-
-            Object.keys(savedData).forEach(key => {
-                if (savedData[key].checked) {
-                    count++;
-                    const li = document.createElement('li');
-                    li.innerHTML = `<i class="fa-solid fa-check text-green-400 mr-2 ml-2"></i> <span class="text-white">${savedData[key].title}</span> <br> <span class="text-gold/70 text-xs mr-6">${savedData[key].date}</span>`;
-                    listContainer.appendChild(li);
-                }
-            });
-            if (count === 0) listContainer.innerHTML = '<li class="text-gray-500">لم يتم إنجاز أي مهام بعد.</li>';
-            document.getElementById('report-percentage').innerText = Math.round((count / checkboxes.length) * 100) + '%';
-            document.getElementById('reportModal').classList.add('active');
-        }
-
-        function closeReport() { document.getElementById('reportModal').classList.remove('active'); }
-    </script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (sessionStorage.getItem('zwaaj_unlocked') === 'true') {
+        passwordGate.classList.add('hidden');
+        mainContent.classList.remove('hidden');
+      }
+      mermaid.initialize({ startOnLoad: true, theme: 'dark', securityLevel: 'loose', themeVariables: { background: '#020617', primaryColor: '#1E293B', primaryTextColor: '#F8F9FA', primaryBorderColor: '#D4AF37', lineColor: '#D4AF37', fontFamily: 'Tajawal' } });
+      renderTasks();
+      updateProgress();
+    });
+  </script>
 </body>
 </html>
