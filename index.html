@@ -1,114 +1,232 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>منصة زواج SaaS للفنادق</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-
-<script>
-tailwind.config = {
-theme: {
-extend: {
-colors: {
-adaam:'#4A0E0E',
-card:'#5A1616',
-gold:'#D4AF37',
-pearl:'#F8F9FA'
-},
-fontFamily:{tajawal:['Tajawal']}
-}
-}
-}
-</script>
-
-<style>
-body{background:#4A0E0E;color:#F8F9FA;font-family:Tajawal}
-.card{background:#5A1616;border:1px solid rgba(212,175,55,.3)}
-.gold{color:#D4AF37}
-.task-done span{text-decoration:line-through;opacity:.5}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة الزفاف القطرية الفاخرة | لوحة القيادة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Tajawal', 'sans-serif'] },
+                    colors: {
+                        qatar: '#5A0A0A',
+                        qatarDark: '#2A0505',
+                        gold: '#D4AF37',
+                        goldLight: '#F3E5AB'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background: linear-gradient(135deg, #2A0505 0%, #000000 100%); color: #F8F9FA; min-height: 100vh; }
+        /* تصميم البطاقات الزجاجية الفاخرة */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .glass-card:hover { border-color: rgba(212, 175, 55, 0.6); }
+        /* شريط التقدم */
+        .progress-bar { transition: width 0.5s ease-in-out; }
+        /* تخصيص زر الاختيار (Checkbox) */
+        input[type="checkbox"] { accent-color: #D4AF37; width: 1.2rem; height: 1.2rem; cursor: pointer; }
+    </style>
 </head>
+<body class="p-0 md:p-12 relative overflow-x-hidden">
 
-<body class="p-6">
+    <div id="passwordGate" class="fixed inset-0 bg-[#070707] z-[999999] flex items-center justify-center font-sans transition-opacity duration-500">
+        <div class="w-[min(420px,90vw)] glass-card p-8 text-center">
+            <div class="text-gold font-black tracking-widest mb-3">ZWAAJ PRIVATE</div>
+            <h1 class="text-3xl font-bold mb-3 text-gold">دخول خاص</h1>
+            <p class="text-gray-300 opacity-70 mb-6">أدخل كلمة المرور لعرض اللوحة الهندسية</p>
+            
+            <input id="passwordInput" type="password" placeholder="كلمة المرور" dir="ltr" class="w-full p-4 rounded-xl border border-gold/40 bg-black/50 text-white text-center text-lg outline-none focus:border-gold transition-colors mb-4">
+            
+            <button onclick="checkPassword()" class="w-full p-4 rounded-xl bg-gold text-[#070707] font-black text-lg hover:scale-[102%] transition-transform">دخول</button>
+            
+            <div id="passwordError" class="hidden text-red-400 mt-4 text-sm font-bold">كلمة المرور غير صحيحة</div>
+        </div>
+    </div>
 
-<div class="max-w-7xl mx-auto space-y-6">
+    <div class="p-6 md:p-0">
+        <header class="mb-12 text-center pt-8 md:pt-0">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gold mb-4 drop-shadow-lg"><i class="fa-solid fa-crown mr-3"></i> منصة الزفاف القطرية (B2B2C)</h1>
+            <p class="text-lg text-gray-300 mb-8">لوحة التتبع الهندسية والتفاعلية لإنجاز المشروع</p>
+            
+            <div class="max-w-2xl mx-auto glass-card p-4">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-gold font-bold">نسبة إنجاز المشروع</span>
+                    <span id="progress-text" class="text-white font-bold text-xl">0%</span>
+                </div>
+                <div class="w-full bg-gray-800 rounded-full h-4 relative overflow-hidden">
+                    <div id="progress-bar" class="progress-bar bg-gradient-to-r from-yellow-600 to-gold h-4 rounded-full" style="width: 0%;"></div>
+                </div>
+            </div>
+        </header>
 
-<header class="card p-6 rounded-2xl">
-<h1 class="text-4xl font-black gold">منصة الزفاف الفاخرة للفنادق</h1>
-<p class="opacity-70 mt-2">لوحة SaaS منظمة (B2B2C)</p>
-</header>
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="glass-card p-6 lg:row-span-2 hover:translate-y-[-5px]">
+                <h2 class="text-2xl font-bold text-gold mb-6 border-b border-gold/20 pb-2"><i class="fa-solid fa-list-check mr-2"></i> خارطة الطريق والمهام</h2>
+                
+                <div class="space-y-6" id="task-list">
+                    <div>
+                        <h3 class="text-xl text-white font-bold mb-3"><i class="fa-solid fa-1 text-gold mr-2"></i> المرحلة 1: التأسيس وقاعدة البيانات</h3>
+                        <label class="flex items-center space-x-3 space-x-reverse mb-2 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
+                            <input type="checkbox" class="task-checkbox">
+                            <span class="text-gray-300">إعداد مشروع Flutter وربطه بـ Firebase</span>
+                        </label>
+                        <label class="flex items-center space-x-3 space-x-reverse mb-2 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
+                            <input type="checkbox" class="task-checkbox">
+                            <span class="text-gray-300">بناء هيكلة (Multi-tenant) للفنادق والضيوف</span>
+                        </label>
+                    </div>
 
-<section class="card p-6 rounded-2xl">
-<h2 class="text-2xl font-black gold mb-4">تدفق النظام</h2>
-<div class="grid md:grid-cols-7 gap-3 text-center">
-<div>الفندق</div>
-<div>إضافة ضيوف</div>
-<div>SMS</div>
-<div>Landing</div>
-<div>تحميل</div>
-<div>RSVP</div>
-<div>QR Scan</div>
-</div>
-</section>
+                    <div>
+                        <h3 class="text-xl text-white font-bold mb-3"><i class="fa-solid fa-2 text-gold mr-2"></i> المرحلة 2: لوحة الفنادق (B2B)</h3>
+                        <label class="flex items-center space-x-3 space-x-reverse mb-2 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
+                            <input type="checkbox" class="task-checkbox">
+                            <span class="text-gray-300">برمجة شاشة تسجيل الدخول للفنادق</span>
+                        </label>
+                        <label class="flex items-center space-x-3 space-x-reverse mb-2 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
+                            <input type="checkbox" class="task-checkbox">
+                            <span class="text-gray-300">إضافة لوحة لإنشاء مناسبة وإضافة قائمة الضيوف</span>
+                        </label>
+                    </div>
 
-<section class="card p-6 rounded-2xl">
-<h2 class="text-2xl font-black gold mb-4">قاعدة البيانات</h2>
-<div class="mermaid">
-erDiagram
-PARTNERS ||--o{ EVENTS : owns
-EVENTS ||--o{ GUESTS : contains
-PARTNERS ||--o{ STAFF : employs
-</div>
-</section>
+                    <div>
+                        <h3 class="text-xl text-white font-bold mb-3"><i class="fa-solid fa-3 text-gold mr-2"></i> المرحلة 3: الذكاء الاصطناعي (AI)</h3>
+                        <label class="flex items-center space-x-3 space-x-reverse mb-2 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
+                            <input type="checkbox" class="task-checkbox">
+                            <span class="text-gray-300">تكوين مصفوفة Google Labs Flow لإنشاء التصاميم</span>
+                        </label>
+                        <label class="flex items-center space-x-3 space-x-reverse mb-2 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
+                            <input type="checkbox" class="task-checkbox">
+                            <span class="text-gray-300">ربط التطبيق بـ API لعرض الصور الفاخرة</span>
+                        </label>
+                    </div>
 
-<section class="card p-6 rounded-2xl">
-<h2 class="text-2xl font-black gold mb-4">المكونات</h2>
-<div class="grid md:grid-cols-4 gap-3">
-<div>Flutter Web</div>
-<div>Flutter Mobile</div>
-<div>AI (Flow Builder)</div>
-<div>Tap Payments</div>
-</div>
-</section>
+                    <div>
+                        <h3 class="text-xl text-white font-bold mb-3"><i class="fa-solid fa-4 text-gold mr-2"></i> المرحلة 4: تطبيق الضيف والباركود</h3>
+                        <label class="flex items-center space-x-3 space-x-reverse mb-2 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
+                            <input type="checkbox" class="task-checkbox">
+                            <span class="text-gray-300">برمجة الروابط العميقة (Deep Links) للتحميل</span>
+                        </label>
+                        <label class="flex items-center space-x-3 space-x-reverse mb-2 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
+                            <input type="checkbox" class="task-checkbox">
+                            <span class="text-gray-300">توليد QR Code ديناميكي آمن للضيف</span>
+                        </label>
+                        <label class="flex items-center space-x-3 space-x-reverse mb-2 p-2 hover:bg-white/5 rounded-lg cursor-pointer transition-colors">
+                            <input type="checkbox" class="task-checkbox">
+                            <span class="text-gray-300">برمجة تطبيق المنظمين لمسح الباركود</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
 
-<section class="card p-6 rounded-2xl">
-<h2 class="text-2xl font-black gold mb-4">المراحل</h2>
-<canvas id="chart"></canvas>
-</section>
+            <div class="glass-card p-6 hover:translate-y-[-5px]">
+                <h2 class="text-2xl font-bold text-gold mb-6 border-b border-gold/20 pb-2"><i class="fa-solid fa-sitemap mr-2"></i> المكونات التقنية للنظام</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-black/40 p-4 rounded-xl border border-white/5 text-center transition-colors hover:border-gold/30">
+                        <i class="fa-solid fa-mobile-screen text-3xl text-blue-400 mb-2"></i>
+                        <h4 class="font-bold text-white">الواجهات (Flutter)</h4>
+                        <p class="text-xs text-gray-400 mt-1">تطبيق الضيف ومسح الباركود</p>
+                    </div>
+                    <div class="bg-black/40 p-4 rounded-xl border border-white/5 text-center transition-colors hover:border-gold/30">
+                        <i class="fa-solid fa-database text-3xl text-yellow-500 mb-2"></i>
+                        <h4 class="font-bold text-white">الخوادم (Firebase)</h4>
+                        <p class="text-xs text-gray-400 mt-1">قاعدة البيانات السحابية</p>
+                    </div>
+                    <div class="bg-black/40 p-4 rounded-xl border border-white/5 text-center transition-colors hover:border-gold/30">
+                        <i class="fa-solid fa-brain text-3xl text-purple-400 mb-2"></i>
+                        <h4 class="font-bold text-white">الذكاء الاصطناعي</h4>
+                        <p class="text-xs text-gray-400 mt-1">Google Labs Flow</p>
+                    </div>
+                    <div class="bg-black/40 p-4 rounded-xl border border-white/5 text-center transition-colors hover:border-gold/30">
+                        <i class="fa-solid fa-credit-card text-3xl text-green-400 mb-2"></i>
+                        <h4 class="font-bold text-white">بوابات الدفع</h4>
+                        <p class="text-xs text-gray-400 mt-1">Tap Payments</p>
+                    </div>
+                </div>
+            </div>
 
-<section class="card p-6 rounded-2xl">
-<h2 class="text-2xl font-black gold mb-4">المهام</h2>
-<div id="tasks"></div>
-</section>
+            <div class="glass-card p-6 hover:translate-y-[-5px]">
+                <h2 class="text-2xl font-bold text-gold mb-6 border-b border-gold/20 pb-2"><i class="fa-solid fa-route mr-2"></i> رحلة الضيف (User Flow)</h2>
+                <ul class="space-y-4">
+                    <li class="flex items-center"><span class="bg-gradient-to-br from-gold to-yellow-600 text-[#2A0505] font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3 ml-3 shadow-lg">1</span> <span class="text-gray-200">الفندق يرسل رسالة SMS للضيف.</span></li>
+                    <li class="flex items-center"><span class="bg-gradient-to-br from-gold to-yellow-600 text-[#2A0505] font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3 ml-3 shadow-lg">2</span> <span class="text-gray-200">الضيف يفتح رابط الويب الأنيق.</span></li>
+                    <li class="flex items-center"><span class="bg-gradient-to-br from-gold to-yellow-600 text-[#2A0505] font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3 ml-3 shadow-lg">3</span> <span class="text-gray-200">الرابط يوجهه لتحميل التطبيق (Deep Link).</span></li>
+                    <li class="flex items-center"><span class="bg-gradient-to-br from-gold to-yellow-600 text-[#2A0505] font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3 ml-3 shadow-lg">4</span> <span class="text-gray-200">تأكيد الحضور من التطبيق وظهور الـ QR.</span></li>
+                    <li class="flex items-center"><span class="bg-gradient-to-br from-gold to-yellow-600 text-[#2A0505] font-bold w-8 h-8 rounded-full flex items-center justify-center mr-3 ml-3 shadow-lg">5</span> <span class="text-gray-200">المسح عند بوابة القاعة.</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-</div>
+    <script>
+        // --- منطق بوابة المرور (Password Logic) ---
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const gate = document.getElementById('passwordGate');
+            const errorMsg = document.getElementById('passwordError');
+            
+            if (password === 'zwaaj2026') {
+                sessionStorage.setItem('zwaajUnlocked', 'true');
+                gate.style.opacity = '0'; // تأثير التلاشي
+                setTimeout(() => { gate.style.display = 'none'; }, 500);
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        }
 
-<script>
-const phases=[
-{t:"Firebase",tasks:["Auth","DB","Security"]},
-{t:"Dashboard",tasks:["Hotel Panel","Events"]},
-{t:"Deep Links",tasks:["Links","Guest App"]},
-{t:"AI",tasks:["Flow","Assets"]},
-{t:"QR",tasks:["QR","Scanner"]}
-];
+        document.addEventListener('DOMContentLoaded', function () {
+            const gate = document.getElementById('passwordGate');
+            
+            // التحقق من الجلسة حتى لا يطلب الرقم السري عند كل تحديث للصفحة
+            if (sessionStorage.getItem('zwaajUnlocked') === 'true') {
+                gate.style.display = 'none';
+            }
 
-const ctx=document.getElementById('chart');
-new Chart(ctx,{type:'bar',data:{labels:phases.map(p=>p.t),datasets:[{data:[2,3,2,3,2]}]}});
+            // تفعيل زر Enter
+            document.getElementById('passwordInput').addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    checkPassword();
+                }
+            });
+        });
 
-const box=document.getElementById('tasks');
-phases.forEach(p=>{
-let d=document.createElement('div');
-d.innerHTML="<h3>"+p.t+"</h3>"+p.tasks.map(t=>`<label><input type="checkbox"> ${t}</label>`).join("<br>");
-box.appendChild(d);
-});
+        // --- منطق شريط التقدم (Progress Bar Logic) ---
+        const checkboxes = document.querySelectorAll('.task-checkbox');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
 
-mermaid.initialize({startOnLoad:true});
-</script>
+        function updateProgress() {
+            const totalTasks = checkboxes.length;
+            const completedTasks = document.querySelectorAll('.task-checkbox:checked').length;
+            const percentage = Math.round((completedTasks / totalTasks) * 100);
+            
+            progressBar.style.width = percentage + '%';
+            progressText.innerText = percentage + '%';
+            
+            if(percentage === 100) {
+                progressText.style.color = '#10B981'; // أخضر عند الانتهاء
+            } else {
+                progressText.style.color = '#F8F9FA';
+            }
+        }
 
+        checkboxes.forEach(box => {
+            box.addEventListener('change', updateProgress);
+        });
+    </script>
 </body>
 </html>
