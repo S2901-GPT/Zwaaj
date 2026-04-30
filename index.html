@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luxury Qatari Wedding Platform Architecture</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            royalGold: '#D4AF37',
+            deepBlack: '#070707',
+            charcoal: '#111111',
+            softCharcoal: '#1A1A1A',
+            mutedGold: '#8C7425',
+            pearl: '#F7F1E1'
+          },
+          fontFamily: {
+            tajawal: ['Tajawal', 'Cairo', 'sans-serif']
+          },
+          boxShadow: {
+            gold: '0 0 25px rgba(212, 175, 55, 0.16)',
+            goldStrong: '0 0 45px rgba(212, 175, 55, 0.28)'
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    :root {
+      --gold: #D4AF37;
+      --black: #070707;
+      --charcoal: #111111;
+      --soft-charcoal: #1A1A1A;
+      --pearl: #F7F1E1;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Tajawal', 'Cairo', sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(212, 175, 55, 0.12), transparent 28%),
+        radial-gradient(circle at 85% 5%, rgba(212, 175, 55, 0.08), transparent 24%),
+        linear-gradient(135deg, #050505 0%, #0C0C0C 42%, #111111 100%);
+      color: var(--pearl);
+      min-height: 100vh;
+    }
+
+    .glass-card {
+      background: linear-gradient(145deg, rgba(26, 26, 26, 0.92), rgba(9, 9, 9, 0.94));
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.38);
+      backdrop-filter: blur(18px);
+    }
+
+    .gold-gradient {
+      background: linear-gradient(90deg, #8C7425 0%, #D4AF37 42%, #FFE8A3 50%, #D4AF37 65%, #8C7425 100%);
+    }
+
+    .text-gold-gradient {
+      background: linear-gradient(90deg, #D4AF37, #FFF2B8, #D4AF37);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .luxury-border { position: relative; }
+
+    .luxury-border::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 1.5rem;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.55), rgba(255,255,255,0.06), rgba(212, 175, 55, 0.18));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .task-checkbox {
+      accent-color: #D4AF37;
+      width: 1.1rem;
+      height: 1.1rem;
+      cursor: pointer;
+    }
+
+    .task-item.completed span {
+      color: rgba(247, 241, 225, 0.48);
+      text-decoration: line-through;
+    }
+
+    .phase-button.active {
+      color: #070707;
+      background: #D4AF37;
+      border-color: #D4AF37;
+      box-shadow: 0 0 28px rgba(212, 175, 55, 0.25);
+    }
+
+    .mermaid {
+      display: flex;
+      justify-content: center;
+      direction: ltr;
+      overflow-x: auto;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.24);
+      border-radius: 1rem;
+      border: 1px solid rgba(212, 175, 55, 0.16);
+    }
+
+    canvas { max-height: 360px; }
+
+    ::selection {
+      background: rgba(212, 175, 55, 0.35);
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body class="font-tajawal antialiased">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+    <header class="luxury-border glass-card rounded-3xl p-6 sm:p-8 mb-8">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+        <div>
+          <p class="text-royalGold text-sm sm:text-base font-bold tracking-[0.28em] uppercase mb-3">Zwaaj · Qatar Luxury SaaS</p>
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black leading-tight text-gold-gradient">Luxury Qatari Wedding Platform Architecture</h1>
+          <p class="mt-4 max-w-3xl text-pearl/70 text-base sm:text-lg leading-8">لوحة تحكم تنفيذية هادئة ومنظمة لبناء منصة دعوات زفاف فاخرة في قطر، تشمل الذكاء الاصطناعي، رموز QR، واتساب، والمدفوعات.</p>
+        </div>
+        <div class="min-w-full lg:min-w-[340px] glass-card rounded-2xl p-5">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-pearl/75 font-bold">تقدم المشروع</span>
+            <span id="progressText" class="text-royalGold font-black text-xl">0%</span>
+          </div>
+          <div class="w-full h-4 rounded-full bg-black/60 border border-royalGold/20 overflow-hidden">
+            <div id="progressBar" class="gold-gradient h-full rounded-full transition-all duration-700" style="width: 0%;"></div>
+          </div>
+          <p class="text-pearl/45 text-sm mt-3">يتم التحديث تلقائيًا حسب المهام المحددة في المتتبع.</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div class="glass-card rounded-2xl p-5"><p class="text-pearl/50 text-sm">النموذج التجاري</p><h2 class="text-2xl font-black text-royalGold mt-1">Premium SaaS</h2></div>
+      <div class="glass-card rounded-2xl p-5"><p class="text-pearl/50 text-sm">السوق المستهدف</p><h2 class="text-2xl font-black text-royalGold mt-1">قطر</h2></div>
+      <div class="glass-card rounded-2xl p-5"><p class="text-pearl/50 text-sm">عدد المراحل</p><h2 class="text-2xl font-black text-royalGold mt-1">5</h2></div>
+      <div class="glass-card rounded-2xl p-5"><p class="text-pearl/50 text-sm">الأولوية</p><h2 class="text-2xl font-black text-royalGold mt-1">MVP فاخر</h2></div>
+    </section>
+
+    <section class="mb-8">
+      <div class="flex items-end justify-between gap-4 mb-5">
+        <div><p class="text-royalGold font-bold tracking-[0.2em] text-sm">TECH STACK</p><h2 class="text-2xl sm:text-3xl font-black mt-2">البنية التقنية المقترحة</h2></div>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <article class="glass-card rounded-2xl p-5 hover:shadow-gold transition"><div class="text-3xl mb-4">📱</div><h3 class="text-xl font-black text-royalGold">Flutter</h3><p class="text-pearl/60 mt-2 leading-7 text-sm">تطبيق موبايل فاخر لنظامي iOS و Android بواجهة واحدة.</p></article>
+        <article class="glass-card rounded-2xl p-5 hover:shadow-gold transition"><div class="text-3xl mb-4">🔥</div><h3 class="text-xl font-black text-royalGold">Firebase / Supabase</h3><p class="text-pearl/60 mt-2 leading-7 text-sm">مصادقة، قاعدة بيانات، تخزين، وإشعارات حسب احتياج MVP.</p></article>
+        <article class="glass-card rounded-2xl p-5 hover:shadow-gold transition"><div class="text-3xl mb-4">🎨</div><h3 class="text-xl font-black text-royalGold">Fal.ai / Flux.1</h3><p class="text-pearl/60 mt-2 leading-7 text-sm">توليد تصاميم دعوات فاخرة بالذكاء الاصطناعي.</p></article>
+        <article class="glass-card rounded-2xl p-5 hover:shadow-gold transition"><div class="text-3xl mb-4">💳</div><h3 class="text-xl font-black text-royalGold">Tap Payments</h3><p class="text-pearl/60 mt-2 leading-7 text-sm">دفع إلكتروني مناسب للسوق الخليجي وقطر.</p></article>
+        <article class="glass-card rounded-2xl p-5 hover:shadow-gold transition"><div class="text-3xl mb-4">💬</div><h3 class="text-xl font-black text-royalGold">WhatsApp Cloud API</h3><p class="text-pearl/60 mt-2 leading-7 text-sm">إرسال الدعوات، رسائل التذكير، وتأكيد الحضور.</p></article>
+      </div>
+    </section>
+
+    <main class="grid lg:grid-cols-12 gap-8">
+      <section class="lg:col-span-7 glass-card rounded-3xl p-5 sm:p-7">
+        <div class="mb-5"><p class="text-royalGold font-bold tracking-[0.2em] text-sm">DATABASE</p><h2 class="text-2xl sm:text-3xl font-black mt-2">معمارية قاعدة البيانات</h2><p class="text-pearl/55 mt-2 leading-7">العلاقة الأساسية: المستخدم ينشئ مناسبات، وكل مناسبة تحتوي على قائمة ضيوف وروابط QR وحالات حضور.</p></div>
+        <div class="mermaid">
+erDiagram
+    USERS ||--o{ EVENTS : creates
+    EVENTS ||--o{ GUESTS : contains
+    EVENTS ||--o{ INVITATIONS : has
+    GUESTS ||--|| QR_CODES : receives
+    EVENTS ||--o{ PAYMENTS : monetized_by
+    EVENTS ||--o{ WHATSAPP_MESSAGES : sends
+
+    USERS {
+        string id PK
+        string full_name
+        string phone
+        string email
+        string role
+        datetime created_at
+    }
+
+    EVENTS {
+        string id PK
+        string user_id FK
+        string title
+        string bride_name
+        string groom_name
+        string venue
+        datetime event_date
+        string design_theme
+        string status
+    }
+
+    GUESTS {
+        string id PK
+        string event_id FK
+        string name
+        string phone
+        string invite_status
+        string rsvp_status
+        datetime checked_in_at
+    }
+
+    INVITATIONS {
+        string id PK
+        string event_id FK
+        string ai_prompt
+        string design_url
+        string language
+        datetime generated_at
+    }
+
+    QR_CODES {
+        string id PK
+        string guest_id FK
+        string qr_token
+        string qr_url
+        boolean is_used
+    }
+
+    PAYMENTS {
+        string id PK
+        string event_id FK
+        string tap_charge_id
+        decimal amount
+        string currency
+        string status
+    }
+
+    WHATSAPP_MESSAGES {
+        string id PK
+        string event_id FK
+        string guest_id FK
+        string template_name
+        string delivery_status
+        datetime sent_at
+    }
+        </div>
+      </section>
+
+      <section class="lg:col-span-5 glass-card rounded-3xl p-5 sm:p-7">
+        <div class="mb-5"><p class="text-royalGold font-bold tracking-[0.2em] text-sm">ROADMAP</p><h2 class="text-2xl sm:text-3xl font-black mt-2">خريطة التنفيذ</h2><p class="text-pearl/55 mt-2 leading-7">تصور زمني مختصر لمراحل تطوير المنتج حتى الإطلاق التجريبي.</p></div>
+        <canvas id="roadmapChart"></canvas>
+        <div class="mt-6 grid grid-cols-1 gap-3">
+          <button class="phase-button active text-right rounded-xl border border-royalGold/30 px-4 py-3 font-bold transition" data-phase="0">1. Foundation & Auth</button>
+          <button class="phase-button text-right rounded-xl border border-royalGold/30 px-4 py-3 font-bold transition" data-phase="1">2. AI Integration</button>
+          <button class="phase-button text-right rounded-xl border border-royalGold/30 px-4 py-3 font-bold transition" data-phase="2">3. QR & Guest Management</button>
+          <button class="phase-button text-right rounded-xl border border-royalGold/30 px-4 py-3 font-bold transition" data-phase="3">4. Payments & WhatsApp</button>
+          <button class="phase-button text-right rounded-xl border border-royalGold/30 px-4 py-3 font-bold transition" data-phase="4">5. Beta Launch</button>
+        </div>
+      </section>
+
+      <section class="lg:col-span-12 glass-card rounded-3xl p-5 sm:p-7">
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-6">
+          <div><p class="text-royalGold font-bold tracking-[0.2em] text-sm">TASK TRACKER</p><h2 class="text-2xl sm:text-3xl font-black mt-2">متتبع المهام التفاعلي</h2><p class="text-pearl/55 mt-2 leading-7">المهام محفوظة محليًا في المتصفح عبر LocalStorage. عند تحديث الصفحة لن تضيع العلامات.</p></div>
+          <div class="flex flex-wrap gap-3"><button id="resetTasks" class="rounded-xl border border-red-500/40 px-4 py-3 text-red-300 hover:bg-red-500/10 transition font-bold">إعادة تعيين</button><button id="markAll" class="rounded-xl border border-royalGold/50 px-4 py-3 text-royalGold hover:bg-royalGold hover:text-black transition font-bold">تحديد الكل</button></div>
+        </div>
+        <div id="taskGrid" class="grid md:grid-cols-2 xl:grid-cols-5 gap-4"></div>
+      </section>
+
+      <section class="lg:col-span-12 grid lg:grid-cols-3 gap-4">
+        <article class="glass-card rounded-2xl p-5"><h3 class="text-xl font-black text-royalGold mb-3">MVP Scope</h3><p class="text-pearl/60 leading-7">ركز أولًا على إنشاء المناسبة، توليد التصميم، إضافة الضيوف، QR، الدفع، وإرسال الدعوة عبر واتساب.</p></article>
+        <article class="glass-card rounded-2xl p-5"><h3 class="text-xl font-black text-royalGold mb-3">Luxury UX Rule</h3><p class="text-pearl/60 leading-7">لا تكثر الخيارات. اجعل كل شاشة تؤدي وظيفة واحدة واضحة مع تباين عالٍ ومساحات بيضاء كافية.</p></article>
+        <article class="glass-card rounded-2xl p-5"><h3 class="text-xl font-black text-royalGold mb-3">Qatar Readiness</h3><p class="text-pearl/60 leading-7">جهّز اللغة العربية، أرقام قطر، الدفع المحلي، وسيناريوهات إرسال الدعوات العائلية والمجالس.</p></article>
+      </section>
+    </main>
+
+    <footer class="text-center text-pearl/35 text-sm mt-10 pb-6">Zwaaj Dashboard · Luxury Wedding Invitation Platform · Qatar</footer>
+  </div>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      securityLevel: 'loose',
+      themeVariables: {
+        background: '#070707',
+        primaryColor: '#111111',
+        primaryTextColor: '#F7F1E1',
+        primaryBorderColor: '#D4AF37',
+        lineColor: '#D4AF37',
+        secondaryColor: '#1A1A1A',
+        tertiaryColor: '#070707',
+        fontFamily: 'Tajawal, Cairo, sans-serif'
+      }
+    });
+
+    const phases = [
+      { title: 'Foundation & Auth', arabic: 'التأسيس والمصادقة', duration: 2, tasks: ['إنشاء GitHub repository وربطه مع Vercel','اختيار Firebase أو Supabase كبنية Backend','تصميم نظام المستخدمين والأدوار','بناء شاشة تسجيل الدخول والتسجيل','إعداد هيكل Flutter الأساسي','تعريف ثيم الهوية: أسود فاخر وذهبي ملكي'] },
+      { title: 'AI Integration', arabic: 'دمج الذكاء الاصطناعي', duration: 2, tasks: ['إعداد مفاتيح Fal.ai API','بناء شاشة إدخال وصف الدعوة','ربط Flux.1 لتوليد التصميم','حفظ الصور الناتجة في Storage','إضافة سجل للتصاميم السابقة','تجهيز قوالب Prompt عربية فاخرة'] },
+      { title: 'QR & Guest Management', arabic: 'إدارة الضيوف ورموز QR', duration: 2, tasks: ['بناء جدول Guests في قاعدة البيانات','إضافة استيراد الضيوف يدويًا أو CSV','توليد QR فريد لكل ضيف','بناء صفحة تحقق Check-in','إضافة حالات RSVP','إظهار إحصائيات الحضور'] },
+      { title: 'Payments & WhatsApp', arabic: 'المدفوعات وواتساب', duration: 2, tasks: ['إنشاء حساب Tap Payments وإعداد المفاتيح','بناء صفحة خطط الأسعار','ربط الدفع مع تفعيل المناسبة','إعداد WhatsApp Cloud API','إنشاء قوالب رسائل الدعوة والتذكير','تسجيل حالة الإرسال لكل ضيف'] },
+      { title: 'Beta Launch', arabic: 'الإطلاق التجريبي', duration: 1, tasks: ['اختبار رحلة المستخدم كاملة','اختبار الدفع الحقيقي أو Sandbox','اختبار إرسال واتساب لعينة ضيوف','تحسين الأداء وتجربة الجوال','إعداد سياسة الخصوصية وشروط الاستخدام','إطلاق نسخة Beta لمستخدمين محدودين في قطر'] }
+    ];
+
+    const taskGrid = document.getElementById('taskGrid');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const resetTasks = document.getElementById('resetTasks');
+    const markAll = document.getElementById('markAll');
+    const storageKey = 'zwaaj-dashboard-tasks-v1';
+
+    function getSavedTasks() {
+      const saved = localStorage.getItem(storageKey);
+      if (!saved) return {};
+      try { return JSON.parse(saved); } catch { return {}; }
+    }
+
+    function saveTasks(state) { localStorage.setItem(storageKey, JSON.stringify(state)); }
+    function getTaskId(phaseIndex, taskIndex) { return `phase-${phaseIndex}-task-${taskIndex}`; }
+
+    function renderTasks() {
+      const savedState = getSavedTasks();
+      taskGrid.innerHTML = '';
+      phases.forEach((phase, phaseIndex) => {
+        const completedInPhase = phase.tasks.filter((_, taskIndex) => savedState[getTaskId(phaseIndex, taskIndex)]).length;
+        const card = document.createElement('article');
+        card.className = 'rounded-2xl border border-royalGold/20 bg-black/30 p-5';
+        card.innerHTML = `
+          <div class="mb-4">
+            <p class="text-royalGold text-sm font-bold">${phaseIndex + 1}. ${phase.title}</p>
+            <h3 class="text-xl font-black mt-1">${phase.arabic}</h3>
+            <div class="mt-3 h-2 rounded-full bg-black/70 overflow-hidden border border-royalGold/10">
+              <div class="gold-gradient h-full rounded-full" style="width:${(completedInPhase / phase.tasks.length) * 100}%"></div>
+            </div>
+            <p class="text-pearl/40 text-xs mt-2">${completedInPhase} من ${phase.tasks.length} مكتملة</p>
+          </div>
+          <div class="space-y-3">
+            ${phase.tasks.map((task, taskIndex) => {
+              const id = getTaskId(phaseIndex, taskIndex);
+              const checked = savedState[id] ? 'checked' : '';
+              const completedClass = savedState[id] ? 'completed' : '';
+              return `<label class="task-item ${completedClass} flex items-start gap-3 rounded-xl bg-white/[0.025] border border-white/[0.05] p-3 hover:border-royalGold/30 transition cursor-pointer"><input class="task-checkbox mt-1" type="checkbox" data-task-id="${id}" ${checked}><span class="text-sm leading-6 text-pearl/75">${task}</span></label>`;
+            }).join('')}
+          </div>`;
+        taskGrid.appendChild(card);
+      });
+      document.querySelectorAll('.task-checkbox').forEach(checkbox => checkbox.addEventListener('change', handleTaskChange));
+      updateProgress();
+    }
+
+    function handleTaskChange(event) {
+      const savedState = getSavedTasks();
+      savedState[event.target.dataset.taskId] = event.target.checked;
+      saveTasks(savedState);
+      renderTasks();
+    }
+
+    function updateProgress() {
+      const savedState = getSavedTasks();
+      const totalTasks = phases.reduce((sum, phase) => sum + phase.tasks.length, 0);
+      const completedTasks = Object.values(savedState).filter(Boolean).length;
+      const progress = Math.round((completedTasks / totalTasks) * 100);
+      progressBar.style.width = `${progress}%`;
+      progressText.textContent = `${progress}%`;
+    }
+
+    resetTasks.addEventListener('click', () => { localStorage.removeItem(storageKey); renderTasks(); });
+    markAll.addEventListener('click', () => {
+      const allDone = {};
+      phases.forEach((phase, phaseIndex) => phase.tasks.forEach((_, taskIndex) => { allDone[getTaskId(phaseIndex, taskIndex)] = true; }));
+      saveTasks(allDone);
+      renderTasks();
+    });
+
+    const chartContext = document.getElementById('roadmapChart').getContext('2d');
+    const roadmapChart = new Chart(chartContext, {
+      type: 'bar',
+      data: {
+        labels: phases.map((phase, index) => `${index + 1}. ${phase.title}`),
+        datasets: [{ label: 'مدة المرحلة بالأسابيع', data: phases.map(phase => phase.duration), borderWidth: 1, borderColor: '#D4AF37', backgroundColor: 'rgba(212, 175, 55, 0.35)', hoverBackgroundColor: 'rgba(212, 175, 55, 0.65)', borderRadius: 12 }]
+      },
+      options: {
+        indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: '#F7F1E1', font: { family: 'Tajawal', size: 13 } } }, tooltip: { rtl: true, bodyFont: { family: 'Tajawal' }, titleFont: { family: 'Tajawal' }, callbacks: { label: context => ` ${context.raw} أسبوع` } } },
+        scales: { x: { ticks: { color: 'rgba(247, 241, 225, 0.65)', font: { family: 'Tajawal' } }, grid: { color: 'rgba(212, 175, 55, 0.10)' } }, y: { ticks: { color: 'rgba(247, 241, 225, 0.85)', font: { family: 'Tajawal', size: 12 } }, grid: { color: 'rgba(255, 255, 255, 0.04)' } } }
+      }
+    });
+
+    document.querySelectorAll('.phase-button').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.phase-button').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        const phaseIndex = Number(button.dataset.phase);
+        roadmapChart.setActiveElements([{ datasetIndex: 0, index: phaseIndex }]);
+        roadmapChart.tooltip.setActiveElements([{ datasetIndex: 0, index: phaseIndex }], { x: 0, y: 0 });
+        roadmapChart.update();
+      });
+    });
+
+    renderTasks();
+  </script>
+</body>
+</html>
